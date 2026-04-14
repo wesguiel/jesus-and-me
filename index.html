@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jesus and Me — Lighthouse Fellowship</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f1923;--deep:#07111a;--gold:#c9a84c;--lgold:#e8c97a;
+  --cream:#f5f0e8;--muted:#8a9ab5;--card:rgba(255,255,255,0.045);
+  --border:rgba(201,168,76,0.22);--radius:12px;
+}
+body{font-family:Georgia,serif;background:var(--navy);color:var(--cream);overflow-x:hidden}
+
+/* ═══ HERO ═══ */
+#hero{
+  position:relative;width:100%;height:100vh;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-photo{
+  position:absolute;inset:0;
+  background:url('lighthouse2.jpg') center 60%/cover no-repeat;
+  transform-origin:center center;
+  animation:kenBurns 14s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes kenBurns{
+  0%  {transform:scale(1.0)  translate(0%,   0%)}
+  100%{transform:scale(1.12) translate(-2%, -1.5%)}
+}
+@keyframes kenBurnsIn{
+  0%  {transform:scale(1)    translate(0%,0%)}
+  100%{transform:scale(1.18) translate(-2%,-2%)}
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(4,10,20,0.25) 0%,
+    rgba(4,10,20,0.05) 30%,
+    rgba(4,10,20,0.40) 62%,
+    rgba(4,10,20,0.88) 100%
+  );
+}
+
+/* hero text */
+.hero-text{
+  position:relative;z-index:10;text-align:center;padding:0 24px;
+  animation:heroFadeIn 2s ease 0.6s both;
+}
+@keyframes heroFadeIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-org{
+  display:inline-block;
+  font-family:system-ui,sans-serif;font-size:.68rem;letter-spacing:.28em;
+  text-transform:uppercase;color:#fff;margin-bottom:14px;
+  background:rgba(4,10,20,0.55);
+  border:1px solid rgba(201,168,76,0.35);
+  border-radius:30px;padding:5px 18px;
+  backdrop-filter:blur(4px);
+}
+.hero-corner{
+  position:absolute;bottom:36px;left:36px;z-index:10;
+  display:flex;flex-direction:column;gap:6px;
+}
+.hero-corner-link{
+  font-family:system-ui,sans-serif;font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,0.82);cursor:pointer;
+  background:rgba(4,10,20,0.5);border:1px solid rgba(201,168,76,0.25);
+  border-radius:20px;padding:5px 14px;backdrop-filter:blur(4px);
+  transition:background .2s,color .2s;display:inline-block;
+}
+.hero-corner-link:hover{background:rgba(201,168,76,0.18);color:var(--lgold)}
+.hero-h1{
+  font-size:clamp(3rem,9vw,5.8rem);color:#fff;font-weight:normal;
+  letter-spacing:.07em;text-shadow:0 3px 40px rgba(0,0,0,0.9);line-height:1.08;
+}
+.hero-sub{
+  margin-top:10px;color:rgba(245,240,232,0.72);
+  font-style:italic;font-size:1.05rem;
+  text-shadow:0 1px 12px rgba(0,0,0,0.8);
+}
+.hero-scriptures{
+  margin:28px auto 0;max-width:560px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.hero-scripture-block{
+  background:rgba(4,10,20,0.55);
+  border:1px solid rgba(201,168,76,0.28);
+  border-radius:10px;padding:14px 22px;
+  backdrop-filter:blur(6px);
+}
+.hero-scripture-text{
+  font-size:clamp(1rem,2.2vw,1.2rem);color:#fff;font-style:italic;
+  line-height:1.5;text-shadow:0 1px 8px rgba(0,0,0,0.7);
+}
+.hero-scripture-ref{
+  margin-top:6px;font-family:system-ui,sans-serif;
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);
+}
+.hero-btn{
+  display:inline-block;margin-top:32px;
+  padding:15px 40px;border-radius:30px;
+  background:linear-gradient(135deg,var(--gold),var(--lgold));
+  color:var(--deep);font-family:Georgia,serif;font-size:1rem;font-weight:bold;
+  letter-spacing:.06em;cursor:pointer;border:none;
+  box-shadow:0 4px 28px rgba(201,168,76,0.45);
+  transition:transform .2s,box-shadow .2s;
+}
+.hero-btn:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(201,168,76,0.65)}
+
+/* ═══ FIXED NAV ═══ */
+#topnav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(7,17,26,0.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:12px 24px;display:flex;align-items:center;gap:16px;
+}
+.nav-title{color:var(--lgold);font-size:.9rem;flex:1;cursor:pointer;transition:color .2s;}
+.nav-title:hover{color:#fff}
+.nav-indicator{color:var(--muted);font-size:.8rem}
+.nav-contents-btn{
+  padding:7px 18px;border-radius:20px;border:1px solid var(--border);
+  background:transparent;color:var(--gold);font-family:Georgia,serif;font-size:.82rem;cursor:pointer;
+  transition:background .2s;
+}
+.nav-contents-btn:hover{background:rgba(201,168,76,0.12)}
+
+/* progress */
+#progress-wrap{
+  position:fixed;top:0;left:0;right:0;z-index:101;height:3px;
+  background:rgba(255,255,255,0.05);
+}
+#progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--lgold));width:0;transition:width .5s}
+
+/* ═══ MAIN CONTENT ═══ */
+#content{position:relative;z-index:2;}
+
+.wrapper{max-width:860px;margin:0 auto;padding:48px 24px 100px}
+
+/* TOC */
+#toc-section{margin-bottom:40px}
+#toc-section h2{
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;text-align:center;
+}
+.toc-block{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:28px 32px;margin-bottom:16px;
+}
+.toc-block h3{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;
+}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:6px}
+.toc-item{
+  padding:8px 12px;border-radius:8px;cursor:pointer;
+  font-size:.85rem;color:var(--cream);border:1px solid transparent;
+  transition:all .2s;display:flex;align-items:center;gap:6px;
+}
+.toc-item:hover{background:rgba(201,168,76,0.1);border-color:var(--border);color:var(--lgold)}
+.toc-item.done{color:var(--gold)}
+.toc-item.done::before{content:'✓';font-size:.8rem}
+.toc-num{color:var(--muted);font-size:.75rem;min-width:20px}
+.prog-summary{text-align:center;font-size:.8rem;color:var(--muted);margin-top:16px}
+
+/* Lesson card */
+.lesson{display:none;animation:fadeUp .4s ease}
+.lesson.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.lesson-head{padding:36px 40px 28px;border-bottom:1px solid var(--border)}
+.lesson-session-label{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;font-family:system-ui,sans-serif;
+}
+.lesson-title{font-size:clamp(1.4rem,3.5vw,2rem);color:var(--lgold);font-weight:normal;line-height:1.25}
+.lesson-body{padding:32px 40px}
+
+/* prayer */
+.prayer{
+  background:rgba(201,168,76,0.06);border-left:3px solid var(--gold);
+  border-radius:0 8px 8px 0;padding:14px 20px;margin-bottom:24px;
+  font-style:italic;color:var(--muted);font-size:.9rem;line-height:1.7;
+}
+/* intro */
+.intro{color:rgba(245,240,232,.78);font-size:.95rem;line-height:1.8;margin-bottom:28px}
+
+/* segment */
+.seg{
+  background:rgba(255,255,255,0.025);border:1px solid rgba(201,168,76,0.1);
+  border-radius:10px;padding:24px 28px;margin-bottom:24px;
+}
+.seg-title{
+  font-size:.95rem;color:var(--lgold);font-weight:bold;
+  margin-bottom:18px;font-family:system-ui,sans-serif;
+}
+
+/* scripture */
+.scripture{
+  background:rgba(7,17,26,0.7);border-left:3px solid var(--gold);
+  border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:16px;
+  font-size:.875rem;line-height:1.75;color:rgba(245,240,232,.88);
+}
+.sref{
+  display:block;font-size:.76rem;color:var(--gold);
+  font-style:italic;font-weight:bold;margin-bottom:6px;
+  font-family:system-ui,sans-serif;
+}
+
+/* question */
+.q{margin-bottom:18px}
+.ql{display:block;font-size:.9rem;color:rgba(245,240,232,.9);margin-bottom:8px;line-height:1.55}
+textarea{
+  width:100%;min-height:90px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.18);
+  border-radius:8px;color:var(--cream);font-family:Georgia,serif;font-size:.88rem;
+  padding:12px 14px;resize:vertical;transition:border-color .2s,background .2s;line-height:1.65;
+}
+textarea:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,0.07)}
+textarea::placeholder{color:rgba(138,154,181,0.4)}
+
+/* memorize */
+.memorize{
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);
+  border-radius:8px;padding:14px 18px;margin:16px 0;
+  font-style:italic;font-size:.88rem;color:var(--lgold);line-height:1.7;
+}
+.memorize strong{font-family:system-ui,sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;color:var(--gold)}
+
+/* dig deeper */
+.dig{
+  border:1px solid rgba(201,168,76,0.15);border-radius:8px;
+  overflow:hidden;margin-top:16px;
+}
+.dig-toggle{
+  width:100%;background:rgba(201,168,76,0.07);border:none;
+  color:var(--gold);font-family:system-ui,sans-serif;font-size:.75rem;
+  letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  padding:12px 18px;text-align:left;display:flex;justify-content:space-between;align-items:center;
+  transition:background .2s;
+}
+.dig-toggle:hover{background:rgba(201,168,76,0.14)}
+.dig-arr{transition:transform .3s}
+.dig-toggle.open .dig-arr{transform:rotate(180deg)}
+.dig-body{display:none;padding:18px 20px}
+.dig-body.open{display:block}
+.dig-body p{font-size:.87rem;color:rgba(245,240,232,.8);line-height:1.7;margin-bottom:12px}
+.dig-body .ref{color:var(--gold);font-style:italic;font-size:.82rem}
+.dig-body .q{margin-top:12px}
+
+/* journal */
+.journal{
+  background:rgba(201,168,76,0.03);border:1px dashed rgba(201,168,76,0.25);
+  border-radius:10px;padding:24px;margin-bottom:28px;
+}
+.journal h3{
+  font-family:system-ui,sans-serif;font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+}
+.journal textarea{min-height:150px}
+
+/* nav row */
+.nav-row{
+  display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;
+  margin-top:32px;padding-top:24px;border-top:1px solid var(--border);
+  align-items:center;
+}
+.btn{
+  padding:11px 24px;border-radius:8px;font-family:Georgia,serif;
+  font-size:.92rem;cursor:pointer;transition:all .2s;border:none;
+}
+.btn-back{background:transparent;color:var(--muted);border:1px solid rgba(138,154,181,0.25)}
+.btn-back:hover{color:var(--cream);border-color:var(--muted)}
+.btn-toc{background:transparent;color:var(--gold);border:1px solid var(--border);font-size:.82rem}
+.btn-toc:hover{background:rgba(201,168,76,0.1)}
+.btn-next{background:linear-gradient(135deg,var(--gold),var(--lgold));color:var(--deep);font-weight:bold;letter-spacing:.03em}
+.btn-next:hover{opacity:.9;transform:translateY(-1px)}
+.btn-save{background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid var(--border);font-size:.82rem}
+.btn-save:hover{background:rgba(201,168,76,0.22)}
+.save-wrap{display:flex;align-items:center;gap:8px}
+.saved-badge{
+  font-size:.75rem;color:#7ec87e;border:1px solid rgba(100,200,100,0.3);
+  border-radius:20px;padding:3px 10px;background:rgba(100,200,100,0.1);
+  opacity:0;transition:opacity .3s;
+}
+.saved-badge.show{opacity:1}
+
+/* complete */
+#complete{display:none;text-align:center;padding:80px 20px;animation:fadeUp .6s ease}
+#complete.active{display:block}
+#complete .big{font-size:4rem;margin-bottom:20px;filter:drop-shadow(0 0 16px rgba(201,168,76,.6))}
+#complete h2{color:var(--lgold);font-size:2rem;margin-bottom:16px}
+#complete p{color:var(--muted);line-height:1.8;max-width:500px;margin:0 auto 16px}
+
+/* being written */
+.being-written{
+  text-align:center;padding:48px 24px;
+  color:var(--muted);font-style:italic;font-size:1rem;
+}
+.being-written strong{display:block;color:var(--gold);font-size:1.2rem;margin-bottom:12px;font-style:normal}
+
+/* responsive */
+@media(max-width:640px){
+  .lesson-head,.lesson-body{padding:24px 20px}
+  .seg{padding:18px 16px}
+  .toc-block{padding:18px 16px}
+  .nav-row{flex-direction:column-reverse}
+  .btn{width:100%;text-align:center}
+  .hero-scriptures{gap:10px}
+  .hero-scripture-block{padding:10px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- FIXED PROGRESS + NAV -->
+<div id="progress-wrap"><div id="progress-fill"></div></div>
+<nav id="topnav">
+  <div class="nav-title" onclick="goHome()">Jesus and Me</div>
+  <div class="nav-indicator" id="nav-indicator"></div>
+  <button class="nav-contents-btn" onclick="showTOC()">☰ Contents</button>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-corner">
+    <span class="hero-corner-link" onclick="startStudy();setTimeout(()=>goTo(12),2200)">✦ My Life is a Lamp</span>
+    <span class="hero-corner-link" onclick="startStudy();setTimeout(()=>goTo(13),2200)">✦ My Home is a Lighthouse</span>
+  </div>
+  <div class="hero-text">
+    <div class="hero-org">Lighthouse Fellowship · Seeds International</div>
+    <h1 class="hero-h1">Jesus and Me</h1>
+    <div class="hero-sub">A Bible Study by Keith Parks</div>
+    <div class="hero-scriptures">
+      <div class="hero-scripture-block">
+        <div class="hero-scripture-text">"I am the light of the world."</div>
+        <div class="hero-scripture-ref">John 8:12 — Jesus</div>
+      </div>
+      <div class="hero-scripture-block">
+        <div class="hero-scripture-text">"You are the light of the world."</div>
+        <div class="hero-scripture-ref">Matthew 5:14 — Jesus</div>
+      </div>
+    </div>
+    <button class="hero-btn" onclick="startStudy()">Begin Study ↓</button>
+  </div>
+</section>
+
+<!-- ═══ CONTENT ═══ -->
+<div id="content">
+<div class="wrapper">
+
+<!-- TOC -->
+<div id="toc-section">
+  <h2>Contents — Jesus and Me</h2>
+  <div class="toc-block">
+    <h3>Session One — My Call</h3>
+    <div class="toc-grid" id="toc-s1"></div>
+  </div>
+  <div class="toc-block">
+    <h3>Session Two — My Character</h3>
+    <div class="toc-grid" id="toc-s2"></div>
+  </div>
+  <div class="toc-block">
+    <h3>Session Three — My Mission</h3>
+    <div class="toc-grid" id="toc-s3"></div>
+  </div>
+  <div class="toc-block">
+    <h3>Session Four — Multiply</h3>
+    <div class="toc-grid" id="toc-s4"></div>
+  </div>
+  <div class="prog-summary" id="prog-summary"></div>
+</div>
+
+<!-- ══════════ LESSON 1 ══════════ -->
+<div class="lesson" id="lesson-1">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session One · My Call · Lesson 1</div>
+  <div class="lesson-title">The Bible — God's Word for Mankind</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Father in heaven thank you for the privilege to search your Word. Help me to understand what it says and give me insight to know how it applies to me."</div>
+<div class="intro">The Bible is God's Word to mankind. The Bible was written for you! The Word of God speaks to more than the mind. It talks deeply into your heart. God has given His Word so that you may know Him, love Him and live with Him forever.</div>
+
+<div class="seg">
+<div class="seg-title">Opening Questions</div>
+<div class="scripture"><span class="sref">John 1:1-5</span>In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made through him. Without him, nothing was made that has been made. In him was life, and the life was the light of men. The light shines in the darkness, and the darkness hasn't overcome it.</div>
+<div class="scripture"><span class="sref">2 Timothy 3:16-17</span>Every Scripture is God-breathed and profitable for teaching, for reproof, for correction, and for instruction in righteousness, that each person who belongs to God may be complete, thoroughly equipped for every good work.</div>
+<div class="q"><label class="ql">What does John 1:1 say about God's Word?</label><textarea data-key="l1-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What two things are available to mankind through God's Word?</label><textarea data-key="l1-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">List the items which are available to mankind through scripture (The Word).</label><textarea data-key="l1-q3" placeholder="Write your thoughts…"></textarea></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">1-1 The Longest Chapter in the Bible — A Message for You</div>
+<div class="scripture"><span class="sref">Psalm 119:9-16</span>How can a young man keep his way pure? By living according to your word. With my whole heart I have sought you. Don't let me wander from your commandments. I have hidden your word in my heart, that I might not sin against you. Blessed are you, Yahweh. Teach me your statutes. With my lips, I have declared all the ordinances of your mouth. I have rejoiced in the way of your testimonies, as much as in all riches. I will meditate on your precepts, and consider your ways. I will delight myself in your statutes. I will not forget your word.</div>
+<div class="q"><label class="ql">Make a note of what the Psalmist says following the words "I have" or "I will…"</label><textarea data-key="l1-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What do these words mean to you?</label><textarea data-key="l1-q5" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>Explain this verse: <span class="ref">Psalm 119:130</span> — "The entrance of your words gives light. It gives understanding to the simple."</p>
+    <p>Take your time to read Psalm 119. Highlight the times "Word" is mentioned (36 times). Make this a daily reading over a period of time.</p>
+    <div class="q"><label class="ql">What has the reading of Psalm 119 meant to you?</label><textarea data-key="l1-dd1" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">1-2 God Calls Jeremiah — You Can Expect Him to Call You Too</div>
+<div class="scripture"><span class="sref">Jeremiah 1:4-7</span>Now Yahweh's word came to me, saying… Then I said, "Ah, Lord Yahweh! Behold, I don't know how to speak; for I am a child." But Yahweh said to me, "Don't say, 'I am a child;' for you must go to whomever I send you, and you must say whatever I command you. Don't be afraid because of them, for I am with you to deliver you," says Yahweh.</div>
+<div class="q"><label class="ql">How did Jeremiah respond when Yahweh spoke to him?</label><textarea data-key="l1-q6" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">How did Yahweh reply to Jeremiah?</label><textarea data-key="l1-q7" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Has Yahweh ever spoken to you? How?</label><textarea data-key="l1-q8" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>What are the three "I wills of God" in Isaiah 45:2-3? In what beautiful way does Yahweh call us? Isaiah 4:2-3</p>
+    <div class="q"><label class="ql">Write your answer and reflections:</label><textarea data-key="l1-dd2" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">1-3 God Calls Saul — Gives Him Mercy and Grace</div>
+<div class="scripture"><span class="sref">Acts 9:1-6</span>But Saul, still breathing threats and slaughter against the disciples of the Lord, went to the high priest and asked for letters from him to the synagogues of Damascus, that if he found any who were of the Way, whether men or women, he might bring them bound to Jerusalem. As he traveled, he got close to Damascus, and suddenly a light from the sky shone around him. He fell on the earth, and heard a voice saying to him, "Saul, Saul, why do you persecute me?" He said, "Who are you, Lord?" The Lord said, "I am Jesus, whom you are persecuting. But rise up and enter into the city, then you will be told what you must do."</div>
+<div class="q"><label class="ql">How did the Lord extend mercy and grace to Saul?</label><textarea data-key="l1-q9" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>How was Saul's call from God confirmed and what did he do about it? Read Acts 9:7-19.</p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l1-dd3a" placeholder="Write your answer…"></textarea></div>
+    <div class="q"><label class="ql">Do you sense God calling you at this moment? What do you hope to do with it?</label><textarea data-key="l1-dd3b" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">1-4 God's Word is Alive and Active — It Penetrates the Inner You</div>
+<div class="scripture"><span class="sref">Hebrews 4:12-13</span>For the word of God is living and active, and sharper than any two-edged sword, piercing even to the dividing of soul and spirit, of both joints and marrow, and is able to discern the thoughts and intentions of the heart. There is no creature that is hidden from his sight, but all things are naked and laid open before the eyes of him to whom we must give an account.</div>
+<div class="q"><label class="ql">How does God's Word work and what does it do for mankind?</label><textarea data-key="l1-q10" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>What happens when you let the word of Christ dwell in you richly? <span class="ref">Colossians 3:16</span></p>
+    <div class="q"><label class="ql">Write your answer and reflections:</label><textarea data-key="l1-dd4" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">1-5 Open the Door of Your Life to God — He Speaks to You!</div>
+<div class="scripture"><span class="sref">Romans 5:8 / Romans 8:6-8 (MSG)</span>Christ arrives right on time to make this happen. He didn't, and doesn't, wait for us to get ready. He presented himself for this sacrificial death when we were far too weak and rebellious to do anything to get ourselves ready. We can understand someone dying for a person worth dying for, and we can understand how someone good and noble could inspire us to selfless sacrifice. But God put his love on the line for us by offering his Son in sacrificial death while we were of no use whatever to him.</div>
+<div class="scripture"><span class="sref">John 10:10</span>The thief only comes to steal, kill, and destroy. I came that they may have life, and may have it abundantly.</div>
+<div class="q"><label class="ql">What does this passage say that God Almighty and Jesus Christ do for you?</label><textarea data-key="l1-q11" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">How do you relate to the "We" statements?</label><textarea data-key="l1-q12" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What has Jesus come to do in your life?</label><textarea data-key="l1-q13" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>The Psalmist declares how good God is in <span class="ref">Psalm 86:1-10</span>. Make a list of His benefits available to you. Make another list of the "I" statements. State how you relate to these.</p>
+    <div class="q"><label class="ql">List of God's benefits available to you:</label><textarea data-key="l1-dd5a" placeholder="List His benefits…"></textarea></div>
+    <div class="q"><label class="ql">List of the "I" statements — and how you relate to each:</label><textarea data-key="l1-dd5b" placeholder="List the "I" statements and your reflection…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 1</h3><textarea data-key="l1-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <div></div>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(1)">Save Progress</button><span class="saved-badge" id="sb-1">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(2)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 2 ══════════ -->
+<div class="lesson" id="lesson-2">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session One · My Call · Lesson 2</div>
+  <div class="lesson-title">God Almighty — There Is No Other God Like Him</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Dear God please reveal Yourself to me through your Word — The Holy Bible."</div>
+<div class="intro">The qualities of God are His inbuilt attributes and characteristics. The understanding of these qualities are foundational to one wanting to know Him. The Bible provides a complete picture of who God is and how He works. He has many attributes. We now examine six of these. Take your time. Read, meditate and journal what you discover. Note: The name for God Almighty in The World English Bible is 'Yahweh'. Other translations use the word LORD.</div>
+
+<div class="seg">
+<div class="seg-title">2-1 God Almighty is Eternal — Without Beginning or Ending</div>
+<div class="scripture"><span class="sref">Psalm 90</span>Before the mountains were born, before you had formed the earth and the world, even from everlasting to everlasting, you are God.</div>
+<div class="scripture"><span class="sref">Psalm 102:12, 27</span>But you, Yahweh, will remain forever… You are the same. Your years will have no end.</div>
+<div class="scripture"><span class="sref">Revelation 1:8</span>"I am the Alpha and the Omega," says the Lord God, "who is and who was and who is to come, the Almighty."</div>
+<div class="scripture"><span class="sref">1 Timothy 6:16</span>He alone has immortality, dwelling in unapproachable light, whom no man has seen nor can see, to whom be honor and eternal power. Amen.</div>
+<div class="q"><label class="ql">What have you learned about God Almighty in these two Psalms?</label><textarea data-key="l2-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Explain what Alpha and Omega mean.</label><textarea data-key="l2-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What kind of environment does God reside in?</label><textarea data-key="l2-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. Make a list of the promises God gives which could apply to you in <span class="ref">Isaiah 60:1-22</span>.</p>
+    <div class="q"><label class="ql">Your list:</label><textarea data-key="l2-dd1a" placeholder="Write your answer…"></textarea></div>
+    <p>2. How is God described in 1 Timothy and how are we charged to live? <span class="ref">1 Timothy 1:17, 6:17-19</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd1b" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">2-2 God is Holy — Separate from and Above All Moral Evil and Sin</div>
+<div class="scripture"><span class="sref">Isaiah 57:15</span>For the high and lofty One who inhabits eternity, whose name is Holy, says: "I dwell in the high and holy place, with him also who is of a contrite and humble spirit, to revive the spirit of the humble, and to revive the heart of the contrite."</div>
+<div class="q"><label class="ql">How do these verses convey God's character?</label><textarea data-key="l2-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. What is God's paramount attribute, and how should we respond? <span class="ref">1 Samuel 2:2; Isaiah 43:15; Psalm 103:1</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd2a" placeholder="Write your answer…"></textarea></div>
+    <p>2. Thoroughly explain how God's creatures in heaven honor and worship Him. <span class="ref">Isaiah 6:2-3; Revelation 4:11, 15:3-5, 16:5</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd2b" placeholder="Write your answer…"></textarea></div>
+    <p>3. How am I encouraged to honor and worship Him? <span class="ref">Psalm 47:6-9; 145:21; 71:22; 62:1</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd2c" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">2-3 God is Righteous — All His Actions Are Upright</div>
+<div class="scripture"><span class="sref">Psalm 7:11</span>God is a righteous judge, yes, a God who has indignation every day.</div>
+<div class="scripture"><span class="sref">Psalm 48:10</span>As is your name, God, so is your praise to the ends of the earth. Your right hand is full of righteousness.</div>
+<div class="scripture"><span class="sref">Revelation 16:7</span>I heard the altar saying, "Yes, Lord God, the Almighty, true and righteous are your judgments."</div>
+<div class="q"><label class="ql">How is God's righteousness expressed in these Psalms?</label><textarea data-key="l2-q5" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">How does the Book of Revelation add to these truths?</label><textarea data-key="l2-q6" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. Explain the righteousness of God and how He wants me to respond to it. <span class="ref">Psalm 23:3, 9:8, 143:10, 35:28, 4:1</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd3a" placeholder="Write your answer…"></textarea></div>
+    <p>2. People try to create their own righteousness, but how do we find God's righteousness? <span class="ref">Romans 10:13; John 17:25; Matthew 6:33; Galatians 3:11</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd3b" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">2-4 God is Light — There Is No Darkness in Him</div>
+<div class="scripture"><span class="sref">1 John 1:5</span>This is the message which we have heard from him and announce to you, that God is light, and in him is no darkness at all.</div>
+<div class="scripture"><span class="sref">Psalm 27:1</span>Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?</div>
+<div class="scripture"><span class="sref">James 1:17</span>Every good gift and every perfect gift is from above, coming down from the Father of lights, with whom can be no variation nor turning shadow.</div>
+<div class="q"><label class="ql">We live in a world of darkness. Describe the character of God who lives in light.</label><textarea data-key="l2-q7" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Explain the light which comes from God and what it means to you.</label><textarea data-key="l2-q8" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Where do all the good and perfect gifts come from? How do they never change?</label><textarea data-key="l2-q9" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. How would you describe the light God has shown us? <span class="ref">Psalm 50:1-2; 2 Samuel 23:3-5; Daniel 2:21-23</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd4a" placeholder="Write your answer…"></textarea></div>
+    <p>2. Turn these texts into a written prayer. <span class="ref">Psalm 4:6, 18:28, 36:8-10, 43:5, 89:15; Proverbs 4:18</span></p>
+    <div class="q"><label class="ql">Your prayer:</label><textarea data-key="l2-dd4b" placeholder="Write your prayer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">2-5 God is Just — Fair in Every Way With All People</div>
+<div class="scripture"><span class="sref">Psalm 37:28</span>For Yahweh loves justice, and doesn't forsake his saints. They are preserved forever, but the children of the wicked shall be cut off.</div>
+<div class="scripture"><span class="sref">Psalm 37:5-6</span>Commit your way to Yahweh. Trust also in him, and he will do this: he will make your righteousness shine out like light, and your justice as the noon day sun.</div>
+<div class="q"><label class="ql">What does God's justice mean to you?</label><textarea data-key="l2-q10" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">How do you express it?</label><textarea data-key="l2-q11" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. How important is justice to God? <span class="ref">Psalm 37:5-6, 89:14, 111:7; Proverbs 21:15</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd5a" placeholder="Write your answer…"></textarea></div>
+    <p>2. What hinders pure justice in the world and how is God's justice extended to us? <span class="ref">Proverbs 21:15, 28:5; Deuteronomy 10:18; Isaiah 1:17</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd5b" placeholder="Write your answer…"></textarea></div>
+    <p>3. In what way does Isaiah say that God has extended His justice to the world? <span class="ref">Isaiah 51:4, 42:1, 32:1, 16:5</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd5c" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">2-6 God is Love — His Love is Extended to Every Person on Earth</div>
+<div class="scripture"><span class="sref">Psalm 89:2</span>I indeed declare, "Love stands firm forever. You established the heavens. Your faithfulness is in them."</div>
+<div class="scripture"><span class="sref">Psalm 94:18-19</span>When I said, "My foot is slipping!" Your loving kindness, Yahweh, held me up. In the multitude of my thoughts within me, your comforts delight my soul.</div>
+<div class="scripture"><span class="sref">John 3:16</span>For God so loved the world, that he gave his only born Son, that whoever believes in him should not perish, but have eternal life.</div>
+<div class="q"><label class="ql">How does God's love affect you?</label><textarea data-key="l2-q12" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">How has this lesson changed your understanding of God?</label><textarea data-key="l2-q13" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. How did God demonstrate His love toward us and how should we respond? <span class="ref">1 John 2:15; 2 John 1:6; Romans 5:8</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd6a" placeholder="Write your answer…"></textarea></div>
+    <p>2. What is God promising us and how will we receive it? <span class="ref">John 6:40, 47, 12:50, 17:3</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l2-dd6b" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 2</h3><textarea data-key="l2-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(1)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(2)">Save Progress</button><span class="saved-badge" id="sb-2">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(3)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 3 ══════════ -->
+<div class="lesson" id="lesson-3">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session One · My Call · Lesson 3</div>
+  <div class="lesson-title">Jesus the Christ — Savior of the World</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Jesus please help me to understand who you are and what you want to do for me."</div>
+<div class="intro">Jesus is His given name. The angel told Joseph, "You shall name him Jesus, for it is he who shall save his people from their sins." The term "The Christ" comes from the Old Testament. It means the Anointed One and the Messiah. Thus He is known as Jesus Christ. This lesson introduces our theme, "Jesus and Me". We are going to learn what "Jesus in me and Jesus through me" means to the rest of my life.</div>
+
+<div class="seg">
+<div class="seg-title">3-1 The Son of God — Sent by God Almighty to Save the World</div>
+<div class="scripture"><span class="sref">Mark 1:1</span>The beginning of the Good News of Jesus Christ, the Son of God.</div>
+<div class="scripture"><span class="sref">1 John 5:20</span>We know that the Son of God has come and has given us an understanding, that we know him who is true; and we are in him who is true, in his Son Jesus Christ. This is the true God and eternal life.</div>
+<div class="q"><label class="ql">Write a sentence explaining who Jesus Christ is and why He has come into the world.</label><textarea data-key="l3-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. What did Mary and Peter say Jesus was? How did He reply to the priests? <span class="ref">Matthew 16:16; Luke 1:32, 35; 22:70; Hebrews 1:3-4</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd1a" placeholder="Write your answer…"></textarea></div>
+    <p>2. What are we to believe and confess? <span class="ref">John 3:36, 6:69; Romans 10:9</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd1b" placeholder="Write your answer…"></textarea></div>
+    <p>3. What is promised to us who believe? <span class="ref">1 John 4:15; 5:5, 13</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd1c" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">3-2 The Light and Life of the World — Jesus Came to Deliver Us from Darkness and Death</div>
+<div class="scripture"><span class="sref">John 1:3-5</span>All things were made through him. Without him, nothing was made that has been made. In him was life, and the life was the light of men. The light shines in the darkness, and the darkness hasn't overcome it.</div>
+<div class="scripture"><span class="sref">John 8:12</span>Again, therefore, Jesus spoke to them, saying, "I am the light of the world. He who follows me will not walk in the darkness, but will have the light of life."</div>
+<div class="q"><label class="ql">Write a summary of these two passages as they refer to darkness and light.</label><textarea data-key="l3-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. What is promised for those who see the future great light? <span class="ref">Isaiah 9:2-3, 49:6, 60:1-3</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd2a" placeholder="Write your answer…"></textarea></div>
+    <p>2. Make a list of the benefits which come to us through Jesus Christ. <span class="ref">Luke 1:76-79, 2:27-36; John 6:40, 12:46; 3:18-21</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd2b" placeholder="Write your answer…"></textarea></div>
+    <p>3. What must we do to receive eternal life through Jesus Christ? <span class="ref">John 3:36, 5:24, 6:40, 6:47, 17:3</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd2c" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">3-3 The Death of Jesus Christ — His Blood Cleanses Us from All Sin</div>
+<div class="scripture"><span class="sref">Ephesians 2:13</span>But now in Christ Jesus you who once were far off are made near in the blood of Christ.</div>
+<div class="scripture"><span class="sref">1 John 1:7</span>But if we walk in the light as he is in the light, we have fellowship with one another, and the blood of Jesus Christ his Son, cleanses us from all sin.</div>
+<div class="q"><label class="ql">What makes amends for our sin?</label><textarea data-key="l3-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">How are we to walk?</label><textarea data-key="l3-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. Write a list of sacrificial offerings using animals before Jesus Christ came. <span class="ref">Genesis 4:4; Exodus 12:13; 30:10; Leviticus 16:15; Isaiah 1:11</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd3a" placeholder="Write your answer…"></textarea></div>
+    <p>2. The shed blood of Jesus Christ cleanses us from all sin. The book of Hebrews outlines the complete process. List all the items you can find. Add the additional insights given by Peter and John. <span class="ref">Hebrews 9:22, 9:11-14; 10:19, 12:23-24, 13:20-21; 1 Peter 1:17-21; 1 John 1:7</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd3b" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">3-4 The Resurrection of Jesus Christ — He Conquered Death and the Grave</div>
+<div class="scripture"><span class="sref">John 11:25</span>Jesus said to her, "I am the resurrection and the life. He who believes in me will still live, even if he dies."</div>
+<div class="scripture"><span class="sref">Romans 14:9</span>For to this end Christ died, rose, and lived again, that he might be Lord of both the dead and the living.</div>
+<div class="q"><label class="ql">What two things are happening as a result of the Resurrection?</label><textarea data-key="l3-q5" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. Review the accounts in Matthew 28:5-7; Luke 24:1-7, 24:45-48; John 20:17. What is the most important fact stated in each?</p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd4a" placeholder="Write your answer…"></textarea></div>
+    <p>2. How is the resurrection story explained in The Book of Acts? <span class="ref">Acts 2:30-32; 3:24-26; 10:39-41; 13:32-34</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd4b" placeholder="Write your answer…"></textarea></div>
+    <p>3. How is the Resurrection explained in the Epistles? <span class="ref">Romans 8:11, 6:7-9, 7:4; 1 Corinthians 6:14</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd4c" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">3-5 The Ascension of Jesus Christ — He Entered into Heaven</div>
+<div class="scripture"><span class="sref">Luke 24:50-51</span>He led them out as far as Bethany, and he lifted up his hands and blessed them. While he blessed them, he withdrew from them and was carried up into heaven.</div>
+<div class="scripture"><span class="sref">Acts 1:9</span>When he had said these things, as they were looking, he was taken up, and a cloud received him out of their sight.</div>
+<div class="q"><label class="ql">Relate this unusual happening in your own words.</label><textarea data-key="l3-q6" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. What is the difference between the resurrection and the ascension of Christ?</p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd5a" placeholder="Write your answer…"></textarea></div>
+    <p>2. There are two ways to express where Jesus Followers go when we die. What are they? <span class="ref">Proverbs 30:4; John 3:13, 6:61-62, 20:17 / Luke 23:42-44; 2 Corinthians 12:1-4; Revelation 2:7; Ephesians 1:20-22, 4:7-10; 1 Peter 3:21-22</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd5b" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+</div>
+
+<div class="seg">
+<div class="seg-title">3-6 The Exaltation of Jesus Christ — He Now Rules in Heaven</div>
+<div class="scripture"><span class="sref">Acts 5:31</span>God exalted him with his right hand to be a Prince and a Savior, to give repentance to Israel, and remission of sins.</div>
+<div class="scripture"><span class="sref">Philippians 2:9-11</span>Therefore God also highly exalted him, and gave to him the name which is above every name, that at the name of Jesus every knee should bow, of those in heaven, those on earth, and those under the earth, and that every tongue should confess that Jesus Christ is Lord, to the glory of God the Father.</div>
+<div class="q"><label class="ql">What hope is given you because of the exaltation of Jesus Christ?</label><textarea data-key="l3-q7" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig">
+  <button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+  <div class="dig-body">
+    <p>1. Jesus is now in Heaven with His Father. Where actually is He? What is He doing for us? Why has God exalted Him? <span class="ref">Acts 7:55-56; Romans 8:34; Philippians 2:9-11</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd6a" placeholder="Write your answer…"></textarea></div>
+    <p>2. What did Jesus say happens to His followers? <span class="ref">John 12:26, 13:36, 17:24</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd6b" placeholder="Write your answer…"></textarea></div>
+    <p>3. The Book of Hebrews gives an intricate introduction to Jesus Christ as our High Priest. Study these texts and record the unfolding understanding, section by section. <span class="ref">Hebrews 2:16-18, 3:1-3, 4:14-15, 5:5, 7:25-27, 8:1, 9:11-12</span></p>
+    <div class="q"><label class="ql">Your answer:</label><textarea data-key="l3-dd6c" placeholder="Write your answer…"></textarea></div>
+  </div>
+</div>
+<div class="memorize"><strong>Meditate and Memorize</strong>John 8:12 — "I am the Light of the world. He who follows me will not walk in the darkness, but will have the light of life."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 3</h3><textarea data-key="l3-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(2)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(3)">Save Progress</button><span class="saved-badge" id="sb-3">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(4)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 4 ══════════ -->
+<div class="lesson" id="lesson-4">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session One · My Call · Lesson 4</div>
+  <div class="lesson-title">God's Seven Gifts from the Cross</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Father in heaven please give me an understanding of what Jesus Christ did on the cross so I can come to know you and have eternal life."</div>
+<div class="intro">Picture the cross. Mankind was created with the ability to choose to do right or wrong. Your conscience and your will help you to make the right decisions. Many lives have been destroyed by wrong choices leading them to remorse. God is interested in helping you to make the right choices. You begin by discovering who you are and what God wants you to be. The seven gifts are: Love · Faith · Freedom · Mercy · Grace · Hope · and Jesus Christ Himself.</div>
+
+<div class="seg">
+<div class="seg-title">4-1 Jesus Christ — God's Greatest Gift / 4-2 Love — Unending</div>
+<div class="scripture"><span class="sref">John 3:16</span>For God so loved the world, that he gave his only born Son, that whoever believes in him should not perish, but have eternal life.</div>
+<div class="scripture"><span class="sref">Romans 5:8</span>But God commends his own love toward us, in that while we were yet sinners, Christ died for us.</div>
+<div class="scripture"><span class="sref">John 15:13</span>Greater love has no one than this, that someone lay down his life for his friends.</div>
+<div class="scripture"><span class="sref">John 15:9</span>Even as the Father has loved me, I also have loved you. Remain in my love.</div>
+<div class="q"><label class="ql">What does the Love of God do for you?</label><textarea data-key="l4-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Explain how both God Almighty and Jesus Christ have shown their love to you.</label><textarea data-key="l4-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Create a paragraph which explains the extent of God's love for you. <span class="ref">Romans 5:5, 8:38-39; 2 Corinthians 13:14</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. What do these verses say about your love for God? <span class="ref">Mark 12:30; John 16:26-28; Ephesians 3:14-19; 1 Corinthians 2:9</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd1b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">4-3 Faith — Trust and Confidence — I Know that I Know that I Know</div>
+<div class="scripture"><span class="sref">Romans 10:17</span>So faith comes by hearing, and hearing by the word of God.</div>
+<div class="scripture"><span class="sref">Hebrews 11:1</span>Now faith is assurance of things hoped for, proof of things not seen.</div>
+<div class="q"><label class="ql">How does faith come to you? Where does faith come from?</label><textarea data-key="l4-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What is faith? Put this into your own words.</label><textarea data-key="l4-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What does faith lead us into? <span class="ref">Romans 5:1-2</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. How do both Jews and Gentiles have their hearts cleansed? How are they different? <span class="ref">Acts 15:8-9</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd2b" placeholder="Write your answer…"></textarea></div>
+<p>3. How do I now live my life? <span class="ref">Galatians 2:20</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd2c" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">4-4 Mercy — God Forgives Me — Mercy Looks Back at My Past</div>
+<div class="scripture"><span class="sref">Psalm 86:15</span>But you, Lord, are a merciful and gracious God, slow to anger, and abundant in loving kindness and truth.</div>
+<div class="scripture"><span class="sref">1 Timothy 1:12-13</span>I thank him who enabled me, Christ Jesus our Lord, because he counted me faithful, appointing me to service, although I used to be a blasphemer, a persecutor, and insolent. However, I obtained mercy because I did it ignorantly in unbelief.</div>
+<div class="q"><label class="ql">Explain why you personally need the mercy and forgiveness of God.</label><textarea data-key="l4-q5" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Using these scriptures write your own picture of what you see as God's mercy. Write Psalm 103:1-10 in your own words. <span class="ref">Deuteronomy 4:31; Psalm 78:38, 40:11, 145:9</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. Explain what God's mercy through Jesus Christ does for you. <span class="ref">2 Corinthians 1:3-4; Titus 3:4-6; Hebrews 8:12; 1 Peter 1:3-5, 2:10; 1 John 1:1-3</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd3b" placeholder="Write your answer…"></textarea></div>
+<p>3. Write your own prayer asking God for His mercy in your life.</p>
+<div class="q"><label class="ql">Your prayer:</label><textarea data-key="l4-dd3c" placeholder="Write your prayer…" style="min-height:120px"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">4-5 Grace — God Enables My Future — When I Can't, God Does</div>
+<div class="scripture"><span class="sref">Ephesians 2:8-9</span>For by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, that no one would boast.</div>
+<div class="scripture"><span class="sref">Acts 20:32</span>Now, brothers, I entrust you to God and to the word of his grace, which is able to build up and to give you the inheritance among all those who are sanctified.</div>
+<div class="q"><label class="ql">Explain what God's grace does for you in these two texts.</label><textarea data-key="l4-q6" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Grace for Salvation — I cannot save myself. What benefits come to me through the grace of the Lord Jesus Christ? <span class="ref">John 1:14; Romans 3:24-26, 5:1-5; Ephesians 2:3-9</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd4a" placeholder="Write your answer…"></textarea></div>
+<p>2. Grace for Living — God helps me every day. List how God's grace helped Paul in all circumstances. <span class="ref">Acts 14:3, 20:22-24; Romans 5:20-21; 2 Thessalonians 2:16-17; Titus 3:4-7</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd4b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">4-6 Freedom — From Sin and Darkness</div>
+<div class="scripture"><span class="sref">John 8:32</span>You will know the truth, and the truth will set you free.</div>
+<div class="scripture"><span class="sref">John 8:36</span>If therefore the Son makes you free, you will be free indeed.</div>
+<div class="q"><label class="ql">Explain the freedom which comes to us through Jesus Christ.</label><textarea data-key="l4-q7" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>Every person is bound by their own sin. How does Jesus make us free? What freedom comes to us through Jesus Christ? What is my eventual relationship with Jesus Christ?</p>
+<p><span class="ref">Romans 3:23-24, 6:17-23, 8:2 / Galatians 5:1, 5:13; James 1:22-25 / Romans 6:17-18; 1 Corinthians 7:21-23; 1 Peter 2:16</span></p>
+<div class="q"><label class="ql">Write your answers:</label><textarea data-key="l4-dd5" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">4-7 Hope — God Has Provided Everything I Need for the Future</div>
+<div class="scripture"><span class="sref">Titus 2:13-14</span>Looking for the blessed hope and appearing of the glory of our great God and Savior, Jesus Christ; who gave himself for us, that he might redeem us from all iniquity and purify for himself a people for his own possession, zealous for good works.</div>
+<div class="scripture"><span class="sref">Romans 15:13</span>Now may the God of hope fill you with all joy and peace in believing, that you may abound in hope in the power of the Holy Spirit.</div>
+<div class="q"><label class="ql">List the items that your hope in Jesus Christ promises.</label><textarea data-key="l4-q8" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What earthly hope is yours through Jesus Christ? <span class="ref">2 Thessalonians 2:16-17; Hebrews 6:11-12, 10:22-23; 1 John 3:3</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd6a" placeholder="Write your answer…"></textarea></div>
+<p>2. What eternal hope is promised to you through Jesus Christ? <span class="ref">Titus 3:4-7; 1 Peter 1:3-4; Romans 8:24-25</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l4-dd6b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 4</h3><textarea data-key="l4-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(3)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(4)">Save Progress</button><span class="saved-badge" id="sb-4">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(5)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 5 ══════════ -->
+<div class="lesson" id="lesson-5">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session One · My Call · Lesson 5</div>
+  <div class="lesson-title">Turning from Darkness to Light</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Later in this lesson you are invited to write a prayer of repentance."</div>
+<div class="intro">Repentance is turning away from eternal darkness to eternal Light. Darkness is the absence of light. Here is your opportunity to turn your life around. No matter the level of your past darkness Jesus has brought you into His glorious eternal light.</div>
+
+<div class="seg">
+<div class="seg-title">5-1 Born in Sin and Darkness</div>
+<div class="scripture"><span class="sref">Psalm 51:5</span>I was born in iniquity. My mother conceived me in sin.</div>
+<div class="scripture"><span class="sref">John 3:19</span>This is the judgment, that the light has come into the world, and men loved the darkness rather than the light, for their works were evil.</div>
+<div class="q"><label class="ql">Explain the spiritual darkness and the spiritual life you have experienced throughout your own life.</label><textarea data-key="l5-q1" placeholder="Write your thoughts…" style="min-height:120px"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Describe the darkness you see in the world today and what can we do about it? <span class="ref">Isaiah 53:6; Matthew 6:22-24; Romans 3:23, 13:12</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l5-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. What does Jesus do to our darkness and what do we become? <span class="ref">John 1:5; 2 Corinthians 4:5-7; Luke 11:36; Acts 26:17-18; Ephesians 5:6-11</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l5-dd1b" placeholder="Write your answer…"></textarea></div>
+<p>Jesus declared: "I have come as a light into the world, that whoever believes in me may not remain in the darkness." <span class="ref">John 12:46</span></p>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">5-2 Believing in Jesus</div>
+<div class="scripture"><span class="sref">Acts 16:31-33</span>They said, "Believe in the Lord Jesus Christ, and you will be saved, you and your household." They spoke the word of the Lord to him, and to all who were in his house. He took them the same hour of the night and washed their stripes, and was immediately baptized, he and all his household.</div>
+<div class="q"><label class="ql">What is promised to those who believe in "The Light of the World"?</label><textarea data-key="l5-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What is the eternal destiny of those who refuse to believe in Jesus Christ? <span class="ref">John 3:36, 8:24; Romans 2:3-6; Revelation 20:11-15</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l5-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. What is promised to those who believe in Jesus Christ? <span class="ref">John 1:12, 5:24, 6:35, 11:25; 12:36</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l5-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">5-3 Repentance is Necessary — This is Your First Step Toward Faith</div>
+<div class="scripture"><span class="sref">Mark 1:4</span>John came baptizing in the wilderness and preaching the baptism of repentance for forgiveness of sins.</div>
+<div class="scripture"><span class="sref">Mark 1:14-15</span>Jesus came into Galilee, preaching the Good News of God's Kingdom, and saying, "The time is fulfilled, and God's Kingdom is at hand! Repent, and believe in the Good News."</div>
+<div class="scripture"><span class="sref">Luke 5:32</span>I have not come to call the righteous, but sinners, to repentance.</div>
+<div class="q"><label class="ql">What did John the Baptist and Jesus come to preach and do?</label><textarea data-key="l5-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Who is Jesus calling today?</label><textarea data-key="l5-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Review the message of John the Baptist, Jesus and Peter. What are those in darkness and those who are sinners required to do? <span class="ref">Matthew 3:1-2, 4:17; Acts 11:18, 8:20-22</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l5-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. What is required of every one who believes in Jesus Christ? What comes first and what is second? <span class="ref">Luke 15:10; Acts 2:38-40, 3:19, 17:30; 2 Peter 3:9; Revelation 3:19</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l5-dd3b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">5-4 My Personal Prayer of Repentance</div>
+<div class="intro" style="margin-bottom:20px">You now ask "What should I do to have my sins forgiven and receive eternal life?" Read and meditate upon these verses then write your own prayer of repentance in three parts:</div>
+<div class="q"><label class="ql">1. I am Lost and Living in Darkness.</label><textarea data-key="l5-prayer1" placeholder="Write your prayer…" style="min-height:110px"></textarea></div>
+<div class="q"><label class="ql">2. I Believe in Jesus Christ as My Personal Savior.</label><textarea data-key="l5-prayer2" placeholder="Write your prayer…" style="min-height:110px"></textarea></div>
+<div class="q"><label class="ql">3. I repent of my sin and invite Jesus Christ to become the Lord of My Life.</label><textarea data-key="l5-prayer3" placeholder="Write your prayer…" style="min-height:110px"></textarea></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">5-5 Living in the Light — Welcome to the Kingdom of God</div>
+<div class="scripture"><span class="sref">Romans 5:1-2</span>Being therefore justified by faith, we have peace with God through our Lord Jesus Christ; through whom we also have our access by faith into this grace in which we stand. We rejoice in hope of the glory of God.</div>
+<div class="scripture"><span class="sref">John 8:12</span>"I am the light of the world. He who follows me will not walk in the darkness, but will have the light of life."</div>
+<div class="q"><label class="ql">Write a short list of what you have now received from Jesus Christ through your own "Believer's Prayer."</label><textarea data-key="l5-q5" placeholder="Write your thoughts…"></textarea></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">5-6 Becoming Like Jesus Christ</div>
+<div class="scripture"><span class="sref">John 17:18-21</span>As you sent me into the world, even so I have sent them into the world. For their sakes I sanctify myself, that they themselves also may be sanctified in truth. Not for these only do I pray, but for those also who will believe in me through their word, that they may all be one; even as you, Father, are in me, and I in you, that they also may be one in us; that the world may believe that you sent me.</div>
+<div class="q"><label class="ql">John 17 is the priestly prayer of Jesus Christ. How are you included in the prayer?</label><textarea data-key="l5-q6" placeholder="Write your thoughts…"></textarea></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>John 1:12-13 — "But as many as received him, to them he gave the right to become God's children, to those who believe in his name: who were born, not of blood, nor of the will of the flesh, nor of the will of man, but of God."</div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>Jesus Christ is so gracious to us: What have we obtained? What has been multiplied to us? What has been granted to us? <span class="ref">2 Peter 1:1-4</span></p>
+<div class="q"><label class="ql">Write your answers:</label><textarea data-key="l5-dd4" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 5</h3><textarea data-key="l5-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(4)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(5)">Save Progress</button><span class="saved-badge" id="sb-5">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(6)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 6 ══════════ -->
+<div class="lesson" id="lesson-6">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Two · My Character · Lesson 6</div>
+  <div class="lesson-title">The Holy Spirit</div>
+</div>
+<div class="lesson-body">
+<div class="being-written"><strong>This Lesson is Being Written</strong>Keith Parks is currently writing this lesson. While you wait, journal your existing understanding of the Holy Spirit below.</div>
+<div class="journal"><h3>My Journal — Lesson 6</h3><textarea data-key="l6-journal" placeholder="What do you already know or believe about the Holy Spirit? Write your reflections here…" style="min-height:200px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(5)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(6)">Save Progress</button><span class="saved-badge" id="sb-6">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(7)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 7 ══════════ -->
+<div class="lesson" id="lesson-7">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Two · My Character · Lesson 7</div>
+  <div class="lesson-title">Holiness &gt; Righteousness</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Dear Father in heaven, Help me to understand that holiness is who I am and righteousness is what I do."</div>
+<div class="intro">In Lesson 2 we learned about the holiness of God. In Lesson 2-3 we learned about His Righteousness. God is now passing these qualities to you through His Son, Jesus Christ. Holiness is God living within us. Righteousness is God working through us. Commit yourself to maintain the holy character God has given you and to fill your life with right actions.</div>
+
+<div class="seg">
+<div class="seg-title">6-1 Jesus Christ — The Holy One Sent From God</div>
+<div class="scripture"><span class="sref">Luke 1:49</span>For he who is mighty has done great things for me. Holy is his name.</div>
+<div class="scripture"><span class="sref">Revelation 4:11</span>"Worthy are you, our Lord and God, the Holy One, to receive the glory, the honor, and the power, for you created all things, and because of your desire they existed and were created!"</div>
+<div class="q"><label class="ql">What did the virgin Mary while on earth and the living creatures in heaven say about Jesus Christ?</label><textarea data-key="l7-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>Jesus was fathered by the Holy Spirit, full of the Holy Spirit and our Holy High Priest.</p>
+<p>1. What does His holy character mean to you? <span class="ref">Luke 1:35, 4:11; Acts 3:13-15; Hebrews 7:25-27, 9:11-12</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. What do the creatures in heaven reveal about the holiness of God Almighty? <span class="ref">Revelation 4:8, 15:3-4, 16:5-7</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd1b" placeholder="Write your answer…"></textarea></div>
+<p>3. What does perfecting holiness mean? <span class="ref">2 Corinthians 7:1</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd1c" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">6-2 The Shed Blood of Jesus Christ Makes Me Holy</div>
+<div class="scripture"><span class="sref">1 John 1:7</span>But if we walk in the light as he is in the light, we have fellowship with one another, and the blood of Jesus Christ his Son, cleanses us from all sin.</div>
+<div class="scripture"><span class="sref">Hebrews 10:19</span>Having therefore, brothers, boldness to enter into the holy place by the blood of Jesus.</div>
+<div class="q"><label class="ql">The holiness of God comes to us through the blood of Jesus Christ. Since you have given your life to Christ what do you understand about your new holy character?</label><textarea data-key="l7-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What has the shed blood of Jesus Christ done for us? Add details. <span class="ref">Ephesians 1:3-6, 2:19-22, 5:25-27; Colossians 1:19-20</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. Since we are now holy, how then should we walk? <span class="ref">Romans 11:16; Ephesians 4:22-24; Colossians 3:12-13; 1 Thessalonians 4:1-11</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">6-3 I am a Temple of the Holy Spirit — He Lives Within Me</div>
+<div class="scripture"><span class="sref">1 Corinthians 6:18-20</span>Flee sexual immorality! "Every sin that a man does is outside the body," but he who commits sexual immorality sins against his own body. Or don't you know that your body is a temple of the Holy Spirit who is in you, whom you have from God? You are not your own, for you were bought with a price. Therefore glorify God in your body and in your spirit, which are God's.</div>
+<div class="q"><label class="ql">I have an in-built desire to be like Jesus Christ. I discard everything unholy in my life. As a temple of the Holy Spirit what do I completely avoid?</label><textarea data-key="l7-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. How does the Bible outline what is unholy within all mankind? <span class="ref">Matthew 15:18-20; Romans 1:26-32</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. From these five texts explain who we are and what should we do about it. <span class="ref">Luke 1:74-75; 1 Corinthians 3:16-18; 2 Corinthians 7:1; Ephesians 2:19-22, 4:20-24</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd3b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">6-4 Jesus is the Righteous One — His Actions Are Always Right</div>
+<div class="scripture"><span class="sref">Psalm 119:160</span>All of your words are truth. Every one of your righteous ordinances endures forever.</div>
+<div class="scripture"><span class="sref">Acts 22:14</span>He said, "The God of our fathers has appointed you to know his will, and to see the Righteous One, and to hear a voice from his mouth."</div>
+<div class="q"><label class="ql">How long does the Righteous One speak to us? What does He want us to know?</label><textarea data-key="l7-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What was the first reason that Jesus Christ came into the world? <span class="ref">John 5:30</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd4a" placeholder="Write your answer…"></textarea></div>
+<p>2. What is the result of this righteous action? <span class="ref">Romans 5:17-19, 9:30</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd4b" placeholder="Write your answer…"></textarea></div>
+<p>3. Who did Jesus not come to call? <span class="ref">Luke 5:32; Romans 10:6-11; 1 Peter 3:18-22</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd4c" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">6-5 Jesus Has Given God's Righteousness to Me / 6-6 The Righteous Receive Eternal Rewards</div>
+<div class="scripture"><span class="sref">Romans 1:17</span>For in it is revealed God's righteousness from faith to faith. As it is written, "But the righteous shall live by faith."</div>
+<div class="scripture"><span class="sref">Romans 5:19</span>For as through the one man's disobedience many were made sinners, even so through the obedience of the one, many will be made righteous.</div>
+<div class="scripture"><span class="sref">2 Corinthians 5:21</span>For him who knew no sin he made to be sin on our behalf, so that in him we might become the righteousness of God.</div>
+<div class="scripture"><span class="sref">Matthew 13:43</span>Then the righteous will shine like the sun in the Kingdom of their Father. He who has ears to hear, let him hear.</div>
+<div class="q"><label class="ql">What does "the righteous shall live by faith" mean? How do we receive the righteousness of God?</label><textarea data-key="l7-q5" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What promises does God make to the righteous?</label><textarea data-key="l7-q6" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. How does a sinner receive the righteousness of God? <span class="ref">Romans 1:17; 1 John 1:9; Romans 3:21-26</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd5a" placeholder="Write your answer…"></textarea></div>
+<p>2. As a follower of Jesus, how should we live and what is the result? <span class="ref">Luke 1:74-75; 2 Corinthians 7:12; 1 Timothy 2:22, 6:11; James 5:16</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd5b" placeholder="Write your answer…"></textarea></div>
+<p>3. List the things Paul tells the Philippians to "think about." <span class="ref">Philippians 4:8</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd5c" placeholder="Write your answer…"></textarea></div>
+<p>4. What happens to those who do not live righteous lives? <span class="ref">Matthew 13:49-51, 25:45-46; 2 Thessalonians 1:6-10</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l7-dd5d" placeholder="Write your answer…"></textarea></div>
+</div></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>Colossians 3:12-13 — "Put on therefore, as God's chosen ones, holy and beloved, a heart of compassion, kindness, lowliness, humility, and perseverance; bearing with one another, and forgiving each other, if any man has a complaint against any; even as Christ forgave you, so you also do."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 7</h3><textarea data-key="l7-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(6)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(7)">Save Progress</button><span class="saved-badge" id="sb-7">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(8)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 8 ══════════ -->
+<div class="lesson" id="lesson-8">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Two · My Character · Lesson 8</div>
+  <div class="lesson-title">Developing Godly Character — Toward an Abundant Entrance into the Eternal Kingdom</div>
+</div>
+<div class="lesson-body">
+<div class="prayer" style="font-style:normal;font-size:.85rem;line-height:1.8">Simon Peter, a servant and apostle of Jesus Christ… Grace and peace to you many times over as you deepen in your experience with God and Jesus, our Master. Everything that goes into a life of pleasing God has been miraculously given to us by getting to know, personally and intimately, the One who invited us to God. So don't lose a minute in building on what you've been given, complementing your basic faith with good character, spiritual understanding, alert discipline, passionate patience, reverent wonder, warm friendliness, and generous love… — <em>2 Peter 1:1-11 (MSG)</em></div>
+<div class="intro">Faith came into you the moment you believed and accepted Jesus Christ as your personal Savior and Lord. Peter explains how to deepen your experience with God and Jesus, our Master.</div>
+
+<div class="seg">
+<div class="seg-title">7-1 To Your Faith Add Moral Excellence</div>
+<div class="scripture"><span class="sref">Romans 10:17</span>So faith comes by hearing, and hearing by the word of God.</div>
+<div class="scripture"><span class="sref">2 Peter 1:5a</span>Yes, and for this very cause adding on your part all diligence, in your faith supply moral excellence.</div>
+<div class="q"><label class="ql">How do you increase your faith?</label><textarea data-key="l8-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What is the first quality that expresses itself after you have invited Jesus into your life? Share your own personal experience.</label><textarea data-key="l8-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>How do you explain the knowledge of God? What are you to do with your thought life? <span class="ref">2 Timothy 1:7; Galatians 5:22-25; Titus 1:7-10; 1 Peter 4:7</span></p>
+<div class="q"><label class="ql">Write your answers:</label><textarea data-key="l8-dd1" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">7-2 To Moral Excellence Add Knowledge</div>
+<div class="scripture"><span class="sref">2 Peter 1:5b</span>…and in moral excellence, knowledge.</div>
+<div class="scripture"><span class="sref">2 Corinthians 4:6</span>It is God who said, "Light will shine out of darkness," who has shone in our hearts to give the light of the knowledge of the glory of God in the face of Jesus Christ.</div>
+<div class="q"><label class="ql">What happens to our darkness as we gain knowledge of the glory of God? How have you experienced the light of God in your walk with Jesus?</label><textarea data-key="l8-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What are we to give up and now think about? <span class="ref">Galatians 6:9; Philippians 4:8</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l8-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. What are we to run toward? <span class="ref">Hebrews 12:1</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l8-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">7-3 To Knowledge Add Self-Control</div>
+<div class="scripture"><span class="sref">2 Peter 1:6a</span>…and in knowledge, self-control.</div>
+<div class="scripture"><span class="sref">1 Peter 5:8</span>Be sober and self-controlled. Be watchful. Your adversary, the devil, walks around like a roaring lion, seeking whom he may devour.</div>
+<div class="q"><label class="ql">Who is our enemy and what does he do to our self-control? Share how he has influenced your life.</label><textarea data-key="l8-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. God knows I have temptations. 2. What am I to rejoice in? 3. What develops in me? <span class="ref">James 1:2-4; Romans 5:1-5</span></p>
+<div class="q"><label class="ql">Write your answers:</label><textarea data-key="l8-dd3" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">7-4 To Self-Control Add Perseverance</div>
+<div class="scripture"><span class="sref">2 Peter 1:6b</span>…and in self-control, perseverance.</div>
+<div class="scripture"><span class="sref">1 Timothy 6:11</span>But you, man of God, flee these things, and follow after righteousness, godliness, faith, love, perseverance, and gentleness.</div>
+<div class="q"><label class="ql">The Bible is calling you a "Person of God" — How glorious! Have you ever felt like giving up? What are you doing about it? What quality is God expecting of you now?</label><textarea data-key="l8-q5" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What is your doctrine toward godliness? Compare the way you used to live without Jesus to the way you now live with Him. <span class="ref">1 Timothy 3:16, 4:7-10; 6:7-11</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l8-dd4a" placeholder="Write your answer…"></textarea></div>
+<p>2. Now is a good time to read the book of 1 Timothy. Journal your thoughts. What is Paul saying to you about Godliness?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l8-dd4b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">7-5 To Perseverance Add Godliness</div>
+<div class="scripture"><span class="sref">2 Peter 1:6c</span>…and in perseverance, godliness.</div>
+<div class="scripture"><span class="sref">1 Timothy 3:16</span>Without controversy, the mystery of godliness is great: God was revealed in the flesh, justified in the spirit, seen by angels, preached among the nations, believed on in the world, and received up in glory.</div>
+<div class="q"><label class="ql">Who is the great expression of God Almighty on earth? How have you noticed yourself becoming more like Jesus as you progress through your Christian life?</label><textarea data-key="l8-q6" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What does God give to us through His Holy Spirit? 2. List other fruits of the Spirit. 3. What does Jesus expect of those foreseeing leadership in His Kingdom? <span class="ref">Romans 11:33; 2 Corinthians 10:3-6</span></p>
+<div class="q"><label class="ql">Write your answers:</label><textarea data-key="l8-dd5" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">7-6 To Godliness Add Brotherly Affection</div>
+<div class="scripture"><span class="sref">2 Peter 1:7a</span>…and in godliness, brotherly affection.</div>
+<div class="scripture"><span class="sref">1 John 2:10-11</span>He who loves his brother remains in the light, and there is no occasion for stumbling in him. But he who hates his brother is in the darkness, and walks in the darkness, and doesn't know where he is going, because the darkness has blinded his eyes.</div>
+<div class="q"><label class="ql">Outline what brotherly affection means. What can you do to bring your family closer to Jesus?</label><textarea data-key="l8-q7" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>What happens when we love our brothers (our natural family and our Jesus family)? Compare the way you used to live without Jesus to the way you live now. <span class="ref">Romans 9:1-5, 12:10-13</span></p>
+<div class="q"><label class="ql">Write your answer:</label><textarea data-key="l8-dd6" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">7-7 To Brotherly Affection Add Love — The Final Results</div>
+<div class="scripture"><span class="sref">2 Peter 1:7b</span>…and in brotherly affection, love.</div>
+<div class="scripture"><span class="sref">Luke 10:27</span>You shall love the Lord your God with all your heart, with all your soul, with all your strength, and with all your mind; and your neighbor as yourself.</div>
+<div class="scripture"><span class="sref">2 Peter 1:10-11</span>Therefore, brothers, be more diligent to make your calling and election sure. For if you do these things, you will never stumble. For thus you will be richly supplied with the entrance into the eternal Kingdom of our Lord and Savior, Jesus Christ.</div>
+<div class="q"><label class="ql">Jesus said that this is the greatest of all the commandments. Share the two areas your love should be directed toward — in what order?</label><textarea data-key="l8-q8" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What does Jesus promise if you do these things? Describe what your entrance into heaven will be like.</label><textarea data-key="l8-q9" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>Read and meditate on 1 Corinthians 13. List the things that love is better than. <span class="ref">1 Corinthians 13</span></p>
+<div class="q"><label class="ql">Write your answer:</label><textarea data-key="l8-dd7" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 8</h3><textarea data-key="l8-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(7)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(8)">Save Progress</button><span class="saved-badge" id="sb-8">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(9)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 9 ══════════ -->
+<div class="lesson" id="lesson-9">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Two · My Character · Lesson 9</div>
+  <div class="lesson-title">Integrity</div>
+</div>
+<div class="lesson-body">
+<div class="being-written"><strong>This Lesson is Being Written</strong>Keith Parks is currently writing this lesson. Please journal your thoughts on the topics below while you wait.</div>
+<div class="seg">
+<div class="seg-title">Topics for Reflection</div>
+<div class="q"><label class="ql">Integrity — Titus 2:7 says: "In all things showing yourself an example of good works; in your teaching showing integrity, seriousness, incorruptibility." What does integrity mean to you in your daily life?</label><textarea data-key="l9-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Generosity — How are you living generously for others? How can you grow in this area?</label><textarea data-key="l9-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Honesty — Luke 8:15: "…those in the good ground, these are such as in an honest and good heart, having heard the word, hold it tightly, and produce fruit with patience." What does it mean to have a good and honest heart?</label><textarea data-key="l9-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Falling Away — What dangers do you see that could cause someone to fall away from their faith? What guards do you have in your life?</label><textarea data-key="l9-q4" placeholder="Write your thoughts…"></textarea></div>
+</div>
+<div class="journal"><h3>My Journal — Lesson 9</h3><textarea data-key="l9-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(8)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(9)">Save Progress</button><span class="saved-badge" id="sb-9">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(10)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 10 ══════════ -->
+<div class="lesson" id="lesson-10">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Two · My Character · Lesson 10</div>
+  <div class="lesson-title">Jesus in Me — Intimacy</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Lord Jesus, draw me close to you. I want to know you deeply and abide in your presence each day."</div>
+<div class="intro">True Christian living is not merely about following rules — it is about a living, breathing relationship with the person of Jesus Christ. Jesus used the image of a vine and its branches to describe this intimacy. A branch cannot bear fruit on its own; it must remain connected to the vine. The same is true of us. The more we abide in Christ, the more His life flows through ours.</div>
+
+<div class="seg">
+<div class="seg-title">10-1 Abiding in Christ — The Vine and the Branches</div>
+<div class="scripture"><span class="sref">John 15:4-5</span>Remain in me, and I in you. As the branch can't bear fruit by itself unless it remains in the vine, so neither can you, unless you remain in me. I am the vine. You are the branches. He who remains in me and I in him bears much fruit, for apart from me you can do nothing.</div>
+<div class="scripture"><span class="sref">John 15:7</span>If you remain in me, and my words remain in you, you will ask whatever you desire, and it will be done for you.</div>
+<div class="q"><label class="ql">What does it mean practically to "remain in" or "abide in" Jesus?</label><textarea data-key="l10-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Read John 15:1-17 completely. List every result that comes from abiding in Christ.</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. What does Jesus say will happen to those who do NOT abide in Him? <span class="ref">John 15:6</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd1b" placeholder="Write your answer…"></textarea></div>
+<p>3. How does Colossians 3:16-17 describe what it looks like to let Christ's word dwell in you richly?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd1c" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">10-2 Prayer — The Breath of Intimacy</div>
+<div class="scripture"><span class="sref">Philippians 4:6-7</span>In nothing be anxious, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus.</div>
+<div class="scripture"><span class="sref">1 Thessalonians 5:17</span>Pray without ceasing.</div>
+<div class="q"><label class="ql">Describe your current prayer life. What would you like it to look like?</label><textarea data-key="l10-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Study Jesus' model prayer (Matthew 6:9-13) and break it into its components. What can you learn about the rhythm of prayer from this model?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. What does Romans 8:26-27 say about the Holy Spirit's role in your prayer life?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">10-3 The Word — Nourishment for the Soul</div>
+<div class="scripture"><span class="sref">Psalm 119:105</span>Your word is a lamp to my feet, and a light for my path.</div>
+<div class="scripture"><span class="sref">2 Timothy 3:16-17</span>Every Scripture is God-breathed and profitable for teaching, for reproof, for correction, and for instruction in righteousness, that each person who belongs to God may be complete, thoroughly equipped for every good work.</div>
+<div class="q"><label class="ql">How does spending time in God's Word deepen your intimacy with Jesus?</label><textarea data-key="l10-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What are the four purposes of Scripture listed in 2 Timothy 3:16? Give an example of each in your own life.</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. What does Joshua 1:8 promise to those who meditate on God's Word day and night?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd3b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">10-4 Worship — Loving God with Everything</div>
+<div class="scripture"><span class="sref">John 4:23-24</span>But the hour comes, and now is, when the true worshippers will worship the Father in spirit and truth, for the Father seeks such to be his worshippers. God is spirit, and those who worship him must worship in spirit and truth.</div>
+<div class="scripture"><span class="sref">Romans 12:1</span>Therefore I urge you, brothers, by the mercies of God, to present your bodies a living sacrifice, holy, acceptable to God, which is your spiritual service.</div>
+<div class="q"><label class="ql">What does whole-life worship look like beyond Sunday morning?</label><textarea data-key="l10-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Study Psalm 100. What are the commands given and the reasons behind each?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd4a" placeholder="Write your answer…"></textarea></div>
+<p>2. How does Hebrews 13:15-16 expand our understanding of worship beyond singing?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l10-dd4b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">10-5 Fellowship — Connected to the Body</div>
+<div class="scripture"><span class="sref">Hebrews 10:24-25</span>Let us consider how to provoke one another to love and good works, not forsaking our own assembling together, as the custom of some is, but exhorting one another, and so much the more as you see the Day approaching.</div>
+<div class="scripture"><span class="sref">1 John 1:7</span>But if we walk in the light as he is in the light, we have fellowship with one another, and the blood of Jesus Christ his Son, cleanses us from all sin.</div>
+<div class="q"><label class="ql">Why is Christian community essential to growing in intimacy with Christ?</label><textarea data-key="l10-q5" placeholder="Write your thoughts…"></textarea></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>John 15:5 — "I am the vine. You are the branches. He who remains in me and I in him bears much fruit, for apart from me you can do nothing."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 10</h3><textarea data-key="l10-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(9)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(10)">Save Progress</button><span class="saved-badge" id="sb-10">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(11)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 11 ══════════ -->
+<div class="lesson" id="lesson-11">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Three · My Mission · Lesson 11</div>
+  <div class="lesson-title">Jesus Through Me — Boldness</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Lord, give me a boldness to speak of You and a life that reflects Your glory to everyone around me."</div>
+<div class="intro">Jesus did not save us to keep us to Himself. From the very beginning, the plan was for His life to flow through us into a broken world. Every Jesus Follower is called to be a witness — not just in words, but in the way we live, love, and serve. This lesson explores what it means to let Jesus shine through your life with boldness and intentionality.</div>
+
+<div class="seg">
+<div class="seg-title">11-1 The Great Commission — Our Mandate</div>
+<div class="scripture"><span class="sref">Matthew 28:18-20</span>Jesus came to them and spoke to them, saying, "All authority has been given to me in heaven and on earth. Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all things that I commanded you. Behold, I am with you always, even to the end of the age."</div>
+<div class="scripture"><span class="sref">Acts 1:8</span>But you will receive power when the Holy Spirit has come upon you. You will be my witnesses in Jerusalem, in all Judea and Samaria, and to the uttermost parts of the earth.</div>
+<div class="q"><label class="ql">Who are the people in your "Jerusalem" — your immediate circle — that need to hear about Jesus?</label><textarea data-key="l11-q1" placeholder="Write their names or descriptions…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. The Great Commission contains both a command and a promise. What is each? <span class="ref">Matthew 28:18-20</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l11-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. How does Acts 1:8 map out the expanding reach of the gospel — from local to global? How does your life fit into that map?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l11-dd1b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">11-2 Boldness Given by the Spirit</div>
+<div class="scripture"><span class="sref">Acts 4:29-31</span>"Now, Lord, look at their threats, and grant to your servants to speak your word with all boldness, while you stretch out your hand to heal, and that signs and wonders may be done through the name of your holy servant Jesus." When they had prayed, the place was shaken where they were gathered together. They were all filled with the Holy Spirit, and they spoke the word of God with boldness.</div>
+<div class="scripture"><span class="sref">2 Timothy 1:7</span>For God didn't give us a spirit of fear, but of power, love, and self-control.</div>
+<div class="q"><label class="ql">What fears hold you back from sharing your faith? How does 2 Timothy 1:7 speak to those fears?</label><textarea data-key="l11-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. The early disciples prayed specifically for boldness. Write out a personal prayer asking for boldness in your own context.</p>
+<div class="q"><label class="ql">Your prayer:</label><textarea data-key="l11-dd2a" placeholder="Write your prayer…"></textarea></div>
+<p>2. What does Ephesians 6:19-20 reveal about Paul's approach to speaking the gospel boldly?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l11-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">11-3 Your Story — A Powerful Testimony</div>
+<div class="scripture"><span class="sref">Revelation 12:11</span>They overcame him because of the Lamb's blood, and because of the word of their testimony. They didn't love their life, even to death.</div>
+<div class="scripture"><span class="sref">1 Peter 3:15</span>But sanctify the Lord God in your hearts; and always be ready to give an answer to everyone who asks you a reason concerning the hope that is in you, with humility and fear.</div>
+<div class="q"><label class="ql">Write a brief version of your testimony — your life before Christ, how you came to faith, and what has changed.</label><textarea data-key="l11-q3" placeholder="Before: … How I came to faith: … What has changed: …" style="min-height:180px"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Review the Apostle Paul's testimony in Acts 22:1-21 and Acts 26:1-23. Notice his three-part structure: Before / Encounter / After. How can you apply the same structure to your own story?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l11-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. How does your testimony connect to the larger story of what God is doing in the world?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l11-dd3b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">11-4 Serving Others — Witness Through Action</div>
+<div class="scripture"><span class="sref">Matthew 5:16</span>Even so, let your light shine before men, that they may see your good works and glorify your Father who is in heaven.</div>
+<div class="scripture"><span class="sref">Galatians 5:13</span>For you were called for freedom, brothers. Only don't use your freedom for gain to the flesh, but through love be servants to one another.</div>
+<div class="q"><label class="ql">What practical acts of service could you do this week to let Jesus shine through you?</label><textarea data-key="l11-q4" placeholder="Write your ideas…"></textarea></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>Acts 1:8 — "But you will receive power when the Holy Spirit has come upon you. You will be my witnesses in Jerusalem, in all Judea and Samaria, and to the uttermost parts of the earth."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 11</h3><textarea data-key="l11-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(10)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(11)">Save Progress</button><span class="saved-badge" id="sb-11">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(12)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 12 ══════════ -->
+<div class="lesson" id="lesson-12">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Three · My Mission · Lesson 12</div>
+  <div class="lesson-title">My Life is a Lamp</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Lord, let my life be a light — not my own, but Yours — shining into the darkness for all to see."</div>
+<div class="intro">A lighthouse does not generate its own light. It simply houses a powerful source and positions it so that it shines as far as possible. In the same way, we are not the source of light — Jesus is. But He has called us to position ourselves, our choices, our relationships, and our daily lives so that His light can reach people who are lost in the dark.</div>
+
+<div class="seg">
+<div class="seg-title">12-1 You Are the Light of the World</div>
+<div class="scripture"><span class="sref">Matthew 5:14-16</span>"You are the light of the world. A city located on a hill can't be hidden. Neither do you light a lamp and put it under a measuring basket, but on a stand; and it shines to all who are in the house. Even so, let your light shine before men, that they may see your good works and glorify your Father who is in heaven."</div>
+<div class="scripture"><span class="sref">John 8:12</span>Again, therefore, Jesus spoke to them, saying, "I am the light of the world. He who follows me will not walk in the darkness, but will have the light of life."</div>
+<div class="q"><label class="ql">Jesus says both "I am the light of the world" (John 8:12) and "You are the light of the world" (Matthew 5:14). How do you reconcile these two statements?</label><textarea data-key="l12-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Study Isaiah 42:6 and Isaiah 49:6. How does this Old Testament calling on Israel become fulfilled in Jesus — and then passed on to His followers?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l12-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. Read Ephesians 5:8-14. How does Paul develop the "light" theme in the context of holy living?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l12-dd1b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">12-2 Lamps Under Baskets — Hiding the Light</div>
+<div class="scripture"><span class="sref">Luke 8:16-17</span>"No one, when he has lit a lamp, covers it with a container, or puts it under a bed; but puts it on a stand, that those who enter in may see the light. For nothing is hidden that will not be revealed, nor anything secret that will not be known and come to light."</div>
+<div class="q"><label class="ql">In what areas of your life might you be "covering" your light? What baskets might you need to remove?</label><textarea data-key="l12-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What are common "baskets" that believers use to hide their faith? (e.g., fear of rejection, compartmentalized faith, double life)</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l12-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. Read Romans 1:16. What was Paul's attitude toward the gospel? How can you cultivate the same?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l12-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">12-3 Walking in the Light — Integrity of Life</div>
+<div class="scripture"><span class="sref">1 John 1:5-7</span>This is the message which we have heard from him and announce to you: that God is light, and in him is no darkness at all. If we say that we have fellowship with him and walk in the darkness, we lie and don't tell the truth. But if we walk in the light as he is in the light, we have fellowship with one another, and the blood of Jesus Christ his Son, cleanses us from all sin.</div>
+<div class="q"><label class="ql">What does "walking in the light" look like in your day-to-day choices?</label><textarea data-key="l12-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. John says walking in darkness while claiming fellowship with God is a lie. What are the signs that someone is walking in the light? <span class="ref">1 John 2:9-11</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l12-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. How does Psalm 119:105 connect the Word of God to walking in the light?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l12-dd3b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">12-4 Shining in a Dark World — Contrast and Witness</div>
+<div class="scripture"><span class="sref">Philippians 2:14-16</span>Do all things without murmurings and disputes, that you may become blameless and harmless, children of God without defect in the midst of a crooked and perverse generation, among whom you are seen as lights in the world, holding up the word of life, that I may have something to boast in the day of Christ, that I didn't run in vain nor labor in vain.</div>
+<div class="q"><label class="ql">How does the contrast between your life and the surrounding culture serve as a witness to Christ?</label><textarea data-key="l12-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>Matthew 5:16 — "Even so, let your light shine before men, that they may see your good works and glorify your Father who is in heaven."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 12</h3><textarea data-key="l12-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(11)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(12)">Save Progress</button><span class="saved-badge" id="sb-12">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(13)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 13 ══════════ -->
+<div class="lesson" id="lesson-13">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Three · My Mission · Lesson 13</div>
+  <div class="lesson-title">My Home is a Lighthouse</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Lord, make my home a place of Your presence — a refuge, a gathering point, and a launching pad for Your Kingdom."</div>
+<div class="intro">Throughout history, the home has been the primary center of faith. The early church met in homes. Families were the first discipleship communities. God's design was never for faith to be confined to a building — it was meant to be lived out around dinner tables, in conversations with children, and in the open-door hospitality of households given to Jesus. Your home can be a lighthouse for your neighborhood.</div>
+
+<div class="seg">
+<div class="seg-title">13-1 The Church in Your House</div>
+<div class="scripture"><span class="sref">Romans 16:5</span>Greet the assembly that is in their house.</div>
+<div class="scripture"><span class="sref">Acts 2:46-47</span>Day by day, continuing steadfastly with one accord in the temple, and breaking bread at home, they took their food with gladness and singleness of heart, praising God and having favor with all the people. The Lord added to the assembly day by day those who were being saved.</div>
+<div class="q"><label class="ql">What would it look like for your home to function as a gathering place for faith and community?</label><textarea data-key="l13-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. In the New Testament, many churches met in homes. Research Priscilla and Aquila (Romans 16:3-5), Lydia (Acts 16:40), and Philemon (Philemon 1:2). What do their examples teach about hospitality and mission?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l13-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. How can breaking bread together (meals, communion, fellowship) be a tool of evangelism and discipleship?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l13-dd1b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">13-2 Passing Faith to the Next Generation</div>
+<div class="scripture"><span class="sref">Deuteronomy 6:6-7</span>These words, which I command you today, shall be on your heart; and you shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way, and when you lie down, and when you rise up.</div>
+<div class="scripture"><span class="sref">Proverbs 22:6</span>Train up a child in the way he should go, and when he is old he will not depart from it.</div>
+<div class="q"><label class="ql">Whether you have children or not, how can you invest in the spiritual formation of the young people around you?</label><textarea data-key="l13-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Deuteronomy 6:4-9 (the Shema) describes faith as woven into every moment of daily life. What daily rhythms could you build into your home to keep faith central?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l13-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. Read 2 Timothy 1:5 — Paul commends Timothy's faith that "first lived in your grandmother Lois and your mother Eunice." What does this tell us about the power of generational faithfulness?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l13-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">13-3 Radical Hospitality — An Open Door</div>
+<div class="scripture"><span class="sref">Romans 12:13</span>Contribute to the needs of the saints; given to hospitality.</div>
+<div class="scripture"><span class="sref">1 Peter 4:9-10</span>Be hospitable to one another without grumbling. As each has received a gift, employ it in serving one another, as good managers of the grace of God in its various forms.</div>
+<div class="q"><label class="ql">Who in your life — neighbors, coworkers, the lonely, the lost — could you invite into your home as an act of mission?</label><textarea data-key="l13-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Hebrews 13:2 says, "Don't forget to show hospitality to strangers, for in doing so, some have entertained angels without knowing it." What does this suggest about the spiritual significance of hospitality?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l13-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. How does Luke 10:5-7 (Jesus sending out the 72) model the idea of a "person of peace" — someone whose home becomes a center of gospel work?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l13-dd3b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">13-4 A Home Marked by Prayer</div>
+<div class="scripture"><span class="sref">Isaiah 56:7</span>"For my house will be called a house of prayer for all peoples."</div>
+<div class="scripture"><span class="sref">Matthew 18:19-20</span>"Again, assuredly I tell you, that if two of you will agree on earth concerning anything that they will ask, it will be done for them by my Father who is in heaven. For where two or three are gathered together in my name, there I am in the middle of them."</div>
+<div class="q"><label class="ql">What would it mean for your home to be known as "a house of prayer"?</label><textarea data-key="l13-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>Deuteronomy 6:6-7 — "These words, which I command you today, shall be on your heart; and you shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 13</h3><textarea data-key="l13-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(12)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(13)">Save Progress</button><span class="saved-badge" id="sb-13">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(14)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 14 ══════════ -->
+<div class="lesson" id="lesson-14">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Three · My Mission · Lesson 14</div>
+  <div class="lesson-title">Until Jesus Comes</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Lord, keep me faithful, watchful, and fruitful until You return. Let me live each day with eternity in view."</div>
+<div class="intro">Jesus is coming back. This is not merely a theological footnote — it is a world-shaping truth that changes how we live, invest, relate, and prioritize. Every generation of Jesus Followers is called to live in the tension between the "already" of His first coming and the "not yet" of His return. This lesson explores how the promise of His return should shape the way we live today.</div>
+
+<div class="seg">
+<div class="seg-title">14-1 The Promise of His Return</div>
+<div class="scripture"><span class="sref">John 14:1-3</span>"Don't let your heart be troubled. Believe in God. Believe also in me. In my Father's house are many homes. If it weren't so, I would have told you. I am going to prepare a place for you. If I go and prepare a place for you, I will come again, and will receive you to myself; that where I am, you may be there also."</div>
+<div class="scripture"><span class="sref">Acts 1:10-11</span>While they were looking steadfastly into the sky as he went, behold, two men stood by them in white clothing, who also said, "You men of Galilee, why do you stand looking into the sky? This Jesus, who was received up from you into the sky, will come back in the same way as you saw him going into the sky."</div>
+<div class="q"><label class="ql">How does the promise that Jesus will return personally affect the way you live your daily life?</label><textarea data-key="l14-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Study 1 Thessalonians 4:13-18. What comfort does Paul offer to those grieving the loss of fellow believers in light of the return of Christ?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l14-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. What are the different terms used to describe Christ's return? Research "Parousia," "Epiphany," and "Apokalypsis" — what does each emphasize? <span class="ref">1 Corinthians 15:23; 2 Thessalonians 2:8; Revelation 1:7</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l14-dd1b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">14-2 Living as a Faithful Steward</div>
+<div class="scripture"><span class="sref">Luke 12:42-44</span>The Lord said, "Who then is the faithful and wise steward, whom his lord will set over his household, to give them their portion of food at the right times? Blessed is that servant whom his lord will find doing so when he comes. Truly I tell you, that he will set him over all that he has."</div>
+<div class="scripture"><span class="sref">Matthew 25:21</span>"His lord said to him, 'Well done, good and faithful servant. You have been faithful over a few things, I will set you over many things. Enter into the joy of your lord.'"</div>
+<div class="q"><label class="ql">What "few things" has God entrusted to you right now? How are you being faithful with them?</label><textarea data-key="l14-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Study the Parable of the Talents in Matthew 25:14-30. What is the key difference between the faithful servants and the unfaithful one? What does this reveal about God's expectations?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l14-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. How does 1 Corinthians 4:2 define the primary requirement of a steward?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l14-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">14-3 Watchfulness — Living Alert</div>
+<div class="scripture"><span class="sref">Mark 13:32-33</span>"But about that day or hour no one knows, not even the angels in heaven, nor the Son, but only the Father. Watch! Stay alert! For you don't know when the time is."</div>
+<div class="scripture"><span class="sref">1 Thessalonians 5:4-6</span>But you, brothers, aren't in darkness, that the day should overtake you like a thief. You are all children of light and children of the day. We don't belong to the night, nor to darkness. So then let's not sleep as the rest do, but let's watch and be sober.</div>
+<div class="q"><label class="ql">What does it mean practically to "watch and be sober" in your current season of life?</label><textarea data-key="l14-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Jesus tells several parables about watchfulness: the Ten Virgins (Matthew 25:1-13), the Doorkeeper (Mark 13:34-37), the Thief in the Night (Matthew 24:43-44). What is the common theme and warning in each?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l14-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. How does Titus 2:11-14 describe the posture of a believer living in light of Christ's return?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l14-dd3b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">14-4 Urgent Mission — Redeeming the Time</div>
+<div class="scripture"><span class="sref">Ephesians 5:15-16</span>Therefore see that you walk carefully, not as unwise, but as wise, redeeming the time, because the days are evil.</div>
+<div class="scripture"><span class="sref">2 Peter 3:9</span>The Lord is not slow concerning his promise, as some count slowness; but he is patient with us, not wishing that any should perish, but that all should come to repentance.</div>
+<div class="q"><label class="ql">God is delaying His return so that more people may be saved. How does that truth change your sense of urgency in sharing the gospel?</label><textarea data-key="l14-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>Matthew 25:21 — "Well done, good and faithful servant. You have been faithful over a few things, I will set you over many things. Enter into the joy of your lord."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 14</h3><textarea data-key="l14-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(13)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(14)">Save Progress</button><span class="saved-badge" id="sb-14">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(15)">Next Lesson →</button>
+</div>
+</div></div>
+
+<!-- ══════════ LESSON 15 ══════════ -->
+<div class="lesson" id="lesson-15">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Three · My Mission · Lesson 15</div>
+  <div class="lesson-title">Into Eternity</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">"Father, fix my eyes on eternity. Let the hope of what is to come give me courage, joy, and purpose for today."</div>
+<div class="intro">This is the final lesson of the Jesus and Me study — and in many ways, it points to the beginning of everything that matters most. Life on earth is a vapor, a brief prologue. Eternity is the story. Every moment we live, every choice we make, every person we love — these are all investments in an endless future. Understanding eternity does not make us too heavenly minded to be any earthly good. It makes us the most purposeful people on earth.</div>
+
+<div class="seg">
+<div class="seg-title">15-1 The Reality of Heaven</div>
+<div class="scripture"><span class="sref">John 14:2-3</span>"In my Father's house are many homes. If it weren't so, I would have told you. I am going to prepare a place for you. If I go and prepare a place for you, I will come again, and will receive you to myself; that where I am, you may be there also."</div>
+<div class="scripture"><span class="sref">Revelation 21:3-4</span>I heard a loud voice out of heaven saying, "Behold, God's dwelling is with people, and he will dwell with them, and they will be his people, and God himself will be with them as their God. He will wipe away from them every tear from their eyes. Death will be no more; neither will there be mourning, nor crying, nor pain, any more. The first things have passed away."</div>
+<div class="q"><label class="ql">What aspect of heaven as described in these passages gives you the most hope? Why?</label><textarea data-key="l15-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Study Revelation 21:1-22:5. Make a list of everything that will and will not exist in the New Jerusalem. What surprises you?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l15-dd1a" placeholder="Write your answer…"></textarea></div>
+<p>2. How does Paul describe heaven in Philippians 1:21-23 and 2 Corinthians 5:1-8? What is his emotional posture toward eternity?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l15-dd1b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">15-2 The Reality of Judgment</div>
+<div class="scripture"><span class="sref">2 Corinthians 5:10</span>For we must all be revealed before the judgment seat of Christ, that each one may receive the things in the body according to what he has done, whether good or bad.</div>
+<div class="scripture"><span class="sref">Hebrews 9:27</span>Inasmuch as it is appointed for men to die once, and after this, judgment.</div>
+<div class="q"><label class="ql">How does the reality of the Judgment Seat motivate you to live faithfully today?</label><textarea data-key="l15-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Research the difference between the Judgment Seat of Christ (Bema Seat — for believers, regarding rewards: 1 Corinthians 3:10-15) and the Great White Throne Judgment (for the unsaved: Revelation 20:11-15). How are they different in purpose?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l15-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. What does 1 Corinthians 3:10-15 say about the quality of your work and the fire of judgment? What survives?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l15-dd2b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">15-3 Eternal Life — Beginning Now</div>
+<div class="scripture"><span class="sref">John 17:3</span>"This is eternal life, that they should know you, the only true God, and him whom you sent, Jesus Christ."</div>
+<div class="scripture"><span class="sref">1 John 5:11-13</span>The testimony is this: that God gave to us eternal life, and this life is in his Son. He who has the Son has life. He who doesn't have God's Son doesn't have life. These things I have written to you who believe in the name of the Son of God, that you may know that you have eternal life.</div>
+<div class="q"><label class="ql">Eternal life is not just future — it begins the moment you believe. How does that change the way you think about your life right now?</label><textarea data-key="l15-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. John 17:3 defines eternal life as knowing God — not as a future state, but as a present relationship. How does this change your understanding of "eternal life"?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l15-dd3a" placeholder="Write your answer…"></textarea></div>
+<p>2. According to 1 John 5:11-13, what gives a person assurance of eternal life? How confident are you in your own eternal standing?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l15-dd3b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">15-4 Finishing Well — Press On</div>
+<div class="scripture"><span class="sref">2 Timothy 4:7-8</span>I have fought the good fight. I have finished the course. I have kept the faith. From now on, the crown of righteousness is stored up for me, which the Lord, the righteous judge, will give to me on that day; and not to me only, but also to all those who have loved his appearing.</div>
+<div class="scripture"><span class="sref">Philippians 3:13-14</span>Brothers, I don't regard myself as yet having taken hold, but one thing I do: forgetting the things which are behind and stretching forward to the things which are before, I press on toward the goal for the prize of the high calling of God in Christ Jesus.</div>
+<div class="q"><label class="ql">As you reflect on this entire study, what do you most want to be true of your life when you stand before Jesus?</label><textarea data-key="l15-q4" placeholder="Write your thoughts…" style="min-height:180px"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Paul wrote 2 Timothy 4:7-8 from prison, awaiting execution. What gives his words such power? What does "finishing well" look like in your context?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l15-dd4a" placeholder="Write your answer…"></textarea></div>
+<p>2. Read Hebrews 12:1-3. What does the image of a "cloud of witnesses" and "fixing our eyes on Jesus" say about perseverance in the faith?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l15-dd4b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>2 Timothy 4:7 — "I have fought the good fight. I have finished the course. I have kept the faith."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 15</h3><textarea data-key="l15-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(14)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(15)">Save Progress</button><span class="saved-badge" id="sb-15">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="goTo(16)">Next →</button>
+</div>
+</div></div>
+
+<!-- ══════════ SESSION 4: MULTIPLY ══════════ -->
+<div class="lesson" id="lesson-16">
+<div class="lesson-head">
+  <div class="lesson-session-label">Session Four · Multiply · Lesson 16</div>
+  <div class="lesson-title">Multiply — Participate in the Final Harvest</div>
+</div>
+<div class="lesson-body">
+<div class="prayer">Expand this prayer… "Thank you for all I am learning about you and about how to let you live in and through me. Please help me understand my part in the final harvest and enable me to fulfill it."</div>
+<div class="intro">God's plan for your life is not only for you to be a lamp and your home a lighthouse. Beyond that He wants the fruit of your life and witness to be multiplied over and over.</div>
+
+<div class="seg">
+<div class="seg-title">16-1 Reproduction and Multiplication — God's Plan from the Beginning</div>
+<div class="scripture"><span class="sref">Genesis 1:27-28</span>God created man in his own image. In God's image he created him; male and female he created them. God blessed them. God said to them, "Be fruitful, multiply, fill the earth, and subdue it."</div>
+<div class="q"><label class="ql">Why do you think God put the desire to reproduce in his creation?</label><textarea data-key="l16-q1" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Because man was made "in His image," do you think God wants His image and glory to be reproduced and multiplied too? What might this look like?</label><textarea data-key="l16-q2" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>What else does God multiply? Study each reference and record what is being multiplied. <span class="ref">Genesis 22:17; 2 Kings 4:1-7; Psalm 115:14-15; Acts 6:7; 2 Peter 1:2</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd1" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">16-2 Disciples of Jesus Reproduce "After Their Kind" Too</div>
+<div class="scripture"><span class="sref">Matthew 7:16-20</span>By their fruits you will know them. Do you gather grapes from thorns, or figs from thistles? Even so, every good tree produces good fruit, but the corrupt tree produces evil fruit. A good tree can't produce evil fruit, neither can a corrupt tree produce good fruit. Every tree that doesn't grow good fruit is cut down and thrown into the fire. Therefore by their fruits you will know them.</div>
+<div class="q"><label class="ql">Is it possible to reproduce good fruit by what we say or pretend?</label><textarea data-key="l16-q3" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Do you think it is possible for us to become like Christ? <span class="ref">Ephesians 5:1-2; Romans 8:29; 1 Peter 1:21</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd2a" placeholder="Write your answer…"></textarea></div>
+<p>2. In what four aspects of life did Jesus increase during his pre-ministry years? Are you improving in those four ways? <span class="ref">Luke 2:52</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd2b" placeholder="Write your answer…"></textarea></div>
+<p>3. Do you examine those four areas intentionally before the Lord? How often?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd2c" placeholder="Write your answer…"></textarea></div>
+<p>4. What would your church be like if every believer was growing in these ways? What would the world be like?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd2d" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">16-3 The Jesus Method — His Pattern for Multiplying Disciples</div>
+<div class="intro" style="font-size:.88rem">Jesus modeled a five-step pattern for reaching and multiplying disciples. Study each step and reflect on how it applies to your life.</div>
+<div class="q"><label class="ql">1. Jesus shared the good news of God's Kingdom. <span style="color:var(--gold);font-style:italic">Matthew 4:17</span> — How do you share the gospel most naturally?</label><textarea data-key="l16-q4" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">2. He informed his hearers how their lives would change if they followed Him. <span style="color:var(--gold);font-style:italic">Matthew 4:19, ch. 5–7</span> — Are you able to naturally share the life changes to expect?</label><textarea data-key="l16-q5" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">3. He selected a few to spend time with Him. <span style="color:var(--gold);font-style:italic">Mark 3:13-16</span> — Do you have a small group to invite them to? Could you lead them through Jesus and Me?</label><textarea data-key="l16-q6" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">4. He sent them out to share the news with others who would share it too. <span style="color:var(--gold);font-style:italic">Luke 9:1-5; Luke 10:1-9</span> — Could you encourage them to share Jesus and Me with a friend?</label><textarea data-key="l16-q7" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">5. He commissioned, authorized, and empowered all believers to do the same so that His followers would increase exponentially worldwide. <span style="color:var(--gold);font-style:italic">Matthew 28:18-20; John 20:21</span> — How can you in your setting engage in this commission?</label><textarea data-key="l16-q8" placeholder="Write your thoughts…"></textarea></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">16-4 Feeding the 5,000 — God Multiplies What We Offer</div>
+<div class="scripture"><span class="sref">Luke 9:12-17</span>The day began to wear away, and the twelve came and said to him, "Send the multitude away, that they may go into the surrounding villages and farms, and lodge and get food, for we are here in a deserted place." But he said to them, "You give them something to eat." They said, "We have no more than five loaves and two fish, unless we should go and buy food for all these people." … He took the five loaves and the two fish, and looking up to the sky, he blessed them, and broke them, and gave them to the disciples to set before the multitude. They ate and were all filled.</div>
+<div class="q"><label class="ql">What did the crowd learn from this miracle?</label><textarea data-key="l16-q9" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What did the disciples learn?</label><textarea data-key="l16-q10" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What do you learn from this event?</label><textarea data-key="l16-q11" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">Why do you think this miracle follows the sending of the 12 and comes right before the sending of the 70?</label><textarea data-key="l16-q12" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>What Jesus did with the boy's gift He wants to do with your life — your gift to Him. Describe in your own words what Jesus wants to do with your life. <span class="ref">Matthew 14:13-21</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd4" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">16-5 Make Disciples That Make Disciples</div>
+<div class="scripture"><span class="sref">Matthew 28:18-20</span>Jesus came to them and spoke to them, saying, "All authority has been given to me in heaven and on earth. Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all things that I commanded you. Behold, I am with you always, even to the end of the age."</div>
+<div class="q"><label class="ql">Do you truly believe that this Great Commission was not only for Jesus' disciples and full-time Christian ministers, but also for you?</label><textarea data-key="l16-q13" placeholder="Write your thoughts…"></textarea></div>
+<div class="q"><label class="ql">What does obeying the Great Commission mean for you personally?</label><textarea data-key="l16-q14" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Describe the circumstances that led to your deciding to follow Jesus.</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd5a" placeholder="Write your answer…"></textarea></div>
+<p>2. Were you discipled after making this decision? How were you discipled?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd5b" placeholder="Write your answer…"></textarea></div>
+<p>3. Do you think it's the church's responsibility to disciple the people you witness to? Who are you discipling? Are you intentionally spending relational time with them?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd5c" placeholder="Write your answer…"></textarea></div>
+<p>4. Do you think that working through Jesus and Me with them would be a good way to disciple them?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd5d" placeholder="Write your answer…"></textarea></div>
+<p>5. Are you equipping the people you're discipling to do with someone else what you are doing with them?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd5e" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">16-6 Establish a Disciple-Making Spiritual Community</div>
+<div class="scripture"><span class="sref">Acts 2:42-47</span>They continued steadfastly in the apostles' teaching and fellowship, in the breaking of bread, and prayer. Fear came on every soul, and many wonders and signs were done through the apostles. All who believed were together and had all things in common. They sold their possessions and goods, and distributed them to all, according as anyone had need. Day by day, continuing steadfastly with one accord in the temple, and breaking bread at home, they took their food with gladness and singleness of heart, praising God and having favor with all the people. The Lord added to the assembly day by day those who were being saved.</div>
+<div class="scripture"><span class="sref">Luke 6:40</span>A disciple is not above his teacher, but everyone when he is fully trained will be like his teacher.</div>
+<div class="q"><label class="ql">In the early centuries of church history, discipling happened primarily in homes. Are there seekers or new believers the Lord has brought into your life whom you could invite into your home to go through Jesus and Me with you? <span class="ref">Matthew 28:18-20; John 3:22</span></label><textarea data-key="l16-q15" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. Why do you think Saul sought out Christians in homes? Why do you think that much of his ministry was in homes? <span class="ref">Acts 8:3; Acts 20:20</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd6a" placeholder="Write your answer…"></textarea></div>
+<p>2. Home-based Spiritual Communities must balance three directions: UP — prayer and worship; IN — authentic fellowship and Bible study; OUT — reaching the lost. Does the Lord want you to start one? <span class="ref">Acts 10:27-48</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd6b" placeholder="Write your answer…"></textarea></div>
+<p>3. Could it be that there are lonely, needy people near you in whose lives God is already working who need to be part of a Spiritual Community?</p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd6c" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">16-7 Recognize and Apprentice New Leaders</div>
+<div class="scripture"><span class="sref">2 Timothy 2:1-2</span>You therefore, my child, be strengthened in the grace that is in Christ Jesus. The things which you have heard from me among many witnesses, commit these to faithful men who will be able to teach others also.</div>
+<div class="q"><label class="ql">Think carefully about every word in this passage. Draw or describe a diagram that includes everyone mentioned. Where do you fit in such a paradigm?</label><textarea data-key="l16-q16" placeholder="Write your thoughts…" style="min-height:120px"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. In what ways will you be able to share leadership of your Spiritual Community with others? <span class="ref">Acts 11:25</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd7a" placeholder="Write your answer…"></textarea></div>
+<p>2. Will you ask the Holy Spirit to help you recognize how members of your community are gifted? Will you learn to affirm them — "This is what I see in you…"? <span class="ref">John 1:42</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd7b" placeholder="Write your answer…"></textarea></div>
+</div></div>
+</div>
+
+<div class="seg">
+<div class="seg-title">16-8 Help Launch New Disciple-Making Spiritual Communities</div>
+<div class="scripture"><span class="sref">Mark 3:13-15</span>He went up into the mountain and called to himself those whom he wanted, and they went to him. He appointed twelve, that they might be with him, and that he might send them out to preach and to have authority to heal sicknesses and to cast out demons.</div>
+<div class="scripture"><span class="sref">Matthew 24:14</span>This Good News of the Kingdom will be preached in the whole world for a testimony to all the nations, and then the end will come.</div>
+<div class="q"><label class="ql">The potential leaders you recognize need to be trained, motivated, and helped to start new groups. This is a crucial step in gathering the end-time harvest. What lessons can we learn from Jesus' example?</label><textarea data-key="l16-q17" placeholder="Write your thoughts…"></textarea></div>
+<div class="dig"><button class="dig-toggle" onclick="toggleDig(this)">Dig Deeper — Extended Study <span class="dig-arr">▾</span></button>
+<div class="dig-body">
+<p>1. What can we learn from the Apostle Paul about resourcing and overseeing leaders we have sent to launch new Spiritual Communities? <span class="ref">Acts 14:21-22; Acts 14:26-28; Acts 15:36-41</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd8a" placeholder="Write your answer…"></textarea></div>
+<p>2. What do you think keeps us in the 21st century from experiencing the spread of the gospel like it spread from Ephesus in two years in the 1st century? <span class="ref">Acts 19:8-10; Romans 15:17-24</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd8b" placeholder="Write your answer…"></textarea></div>
+<p>3. Can you see a day coming when, like Paul, we could say "There's no more places for us to minister around here…"? When as Jesus said, "This gospel of the kingdom will be preached in the whole world as a testimony to every ethnic group, and then the end will come"? <span class="ref">Matthew 24:14</span></p>
+<div class="q"><label class="ql">Your answer:</label><textarea data-key="l16-dd8c" placeholder="Write your answer…"></textarea></div>
+</div></div>
+<div class="memorize"><strong>Meditate and Memorize</strong>2 Timothy 2:2 — "The things which you have heard from me among many witnesses, commit these to faithful men who will be able to teach others also."</div>
+</div>
+
+<div class="journal"><h3>My Journal — Lesson 16</h3><textarea data-key="l16-journal" placeholder="Personal reflections, prayers, and notes…" style="min-height:160px"></textarea></div>
+<div class="nav-row">
+  <button class="btn btn-back" onclick="goTo(15)">← Back</button>
+  <button class="btn btn-toc" onclick="showTOC()">☰ Contents</button>
+  <div class="save-wrap"><button class="btn btn-save" onclick="saveLesson(16)">Save Progress</button><span class="saved-badge" id="sb-16">Saved ✓</span></div>
+  <button class="btn btn-next" onclick="showComplete()">Finish Study →</button>
+</div>
+</div></div>
+
+<!-- COMPLETE SCREEN -->
+<div id="complete">
+  <div class="big">🏮</div>
+  <h2>You have finished well.</h2>
+  <p>"For thus you will be richly supplied with the entrance into the eternal Kingdom of our Lord and Savior, Jesus Christ." — 2 Peter 1:11</p>
+  <p>Congratulations on completing <em>Jesus and Me</em>. Our prayer for you is that you will be fruitful and multiply the Kingdom of our Lord Jesus Christ.</p>
+  <p style="color:var(--gold);font-style:italic;margin-top:16px">— Keith Parks, Lighthouse Fellowship</p>
+  <button class="btn btn-toc" style="margin-top:28px" onclick="showTOC()">← Review Contents</button>
+</div>
+
+</div><!-- /wrapper -->
+</div><!-- /content -->
+
+<script>
+// ═══ DATA ═══
+const LESSONS = [
+  {n:1,s:1,t:"The Bible"},
+  {n:2,s:1,t:"God Almighty"},
+  {n:3,s:1,t:"Jesus the Christ"},
+  {n:4,s:1,t:"God's Seven Gifts"},
+  {n:5,s:1,t:"Turning from Darkness to Light"},
+  {n:6,s:2,t:"The Holy Spirit"},
+  {n:7,s:2,t:"Holiness > Righteousness"},
+  {n:8,s:2,t:"Developing Godly Character"},
+  {n:9,s:2,t:"Integrity"},
+  {n:10,s:2,t:"Jesus in Me — Intimacy"},
+  {n:11,s:3,t:"Jesus Through Me — Boldness"},
+  {n:12,s:3,t:"My Life is a Lamp"},
+  {n:13,s:3,t:"My Home is a Lighthouse"},
+  {n:14,s:3,t:"Until Jesus Comes"},
+  {n:15,s:3,t:"Into Eternity"},
+  {n:16,s:4,t:"Multiply"},
+];
+const TOTAL = 16;
+let done = new Set();
+let current = 0;
+
+// ═══ INIT ═══
+function init(){
+  const saved = localStorage.getItem('jem-done');
+  if(saved) done = new Set(JSON.parse(saved));
+  document.querySelectorAll('textarea[data-key]').forEach(t=>{
+    const v = localStorage.getItem('jem-'+t.dataset.key);
+    if(v) t.value = v;
+    t.addEventListener('input',()=>localStorage.setItem('jem-'+t.dataset.key, t.value));
+  });
+  buildTOC(); updateProgress();
+  const last = parseInt(localStorage.getItem('jem-current')||'0');
+  if(last>0) goToSilent(last); else showTOCSilent();
+}
+
+// silent versions used on init — no scroll
+function goToSilent(n){
+  current = n;
+  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('toc-section').style.display='none';
+  document.getElementById('complete').classList.remove('active');
+  const el = document.getElementById('lesson-'+n);
+  if(el){ el.classList.add('active'); }
+  document.getElementById('nav-indicator').textContent = `Lesson ${n} of ${TOTAL}`;
+  localStorage.setItem('jem-current', n);
+}
+function showTOCSilent(){
+  current = 0;
+  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('toc-section').style.display='';
+  document.getElementById('complete').classList.remove('active');
+  document.getElementById('nav-indicator').textContent='';
+  localStorage.setItem('jem-current','0');
+}
+
+// ═══ HERO ═══
+function startStudy(){
+  const photo = document.querySelector('.hero-photo');
+  if(photo){ photo.style.animation='kenBurnsIn 1.8s ease forwards'; }
+  document.getElementById('content').scrollIntoView({behavior:'smooth'});
+}
+
+// ═══ NAVIGATION ═══
+function goTo(n){
+  current = n;
+  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('toc-section').style.display='none';
+  document.getElementById('complete').classList.remove('active');
+  const el = document.getElementById('lesson-'+n);
+  if(el){ el.classList.add('active'); }
+  document.getElementById('nav-indicator').textContent = `Lesson ${n} of ${TOTAL}`;
+  localStorage.setItem('jem-current', n);
+  document.getElementById('content').scrollIntoView({behavior:'smooth'});
+}
+function showTOC(){
+  current = 0;
+  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('toc-section').style.display='';
+  document.getElementById('complete').classList.remove('active');
+  document.getElementById('nav-indicator').textContent='';
+  localStorage.setItem('jem-current','0');
+  document.getElementById('content').scrollIntoView({behavior:'smooth'});
+}
+function goHome(){
+  showTOCSilent();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function showComplete(){ completeStudy(); }
+function completeStudy(){
+  saveLesson(16);
+  current=0;
+  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('toc-section').style.display='none';
+  document.getElementById('complete').classList.add('active');
+  document.getElementById('content').scrollIntoView({behavior:'smooth'});
+}
+
+// ═══ SAVE ═══
+function saveLesson(n){
+  document.querySelectorAll('textarea[data-key]').forEach(t=>{
+    localStorage.setItem('jem-'+t.dataset.key, t.value);
+  });
+  done.add(n);
+  localStorage.setItem('jem-done', JSON.stringify([...done]));
+  buildTOC(); updateProgress();
+  const b = document.getElementById('sb-'+n);
+  if(b){ b.classList.add('show'); setTimeout(()=>b.classList.remove('show'),2500); }
+}
+function updateProgress(){
+  const pct = (done.size/TOTAL)*100;
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('prog-summary').textContent=`${done.size} of ${TOTAL} lessons complete`;
+}
+function buildTOC(){
+  [1,2,3,4].forEach(s=>{
+    const g = document.getElementById('toc-s'+s);
+    if(!g) return;
+    g.innerHTML='';
+    LESSONS.filter(l=>l.s===s).forEach(l=>{
+      const d=document.createElement('div');
+      d.className='toc-item'+(done.has(l.n)?' done':'');
+      d.innerHTML=`<span class="toc-num">${l.n}.</span>${l.t}`;
+      d.onclick=()=>{ goTo(l.n); };
+      g.appendChild(d);
+    });
+  });
+}
+
+// ═══ DIG DEEPER ═══
+function toggleDig(btn){
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
