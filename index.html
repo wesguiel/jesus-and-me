@@ -310,6 +310,88 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
   .btn{width:100%;text-align:center}
   .hero-scriptures{gap:10px}
   .hero-scripture-block{padding:10px 16px}
+  .mode-btn,.print-btn{padding:5px 10px;font-size:.72rem}
+  #topnav{gap:8px}
+}
+
+/* ═══ LIGHT MODE ═══ */
+body.light-mode{
+  --navy:#f9f6f0;--deep:#ede8e0;--gold:#8a6820;--lgold:#6d5218;
+  --cream:#1a1208;--muted:#5a5040;--card:rgba(0,0,0,0.04);
+  --border:rgba(138,104,32,0.25);
+}
+body.light-mode #topnav{background:rgba(249,246,240,0.96);border-bottom-color:rgba(138,104,32,0.2)}
+body.light-mode .scripture{background:rgba(255,255,255,0.85);color:rgba(26,18,8,.85)}
+body.light-mode textarea{background:rgba(0,0,0,0.04);border-color:rgba(138,104,32,0.25);color:var(--cream)}
+body.light-mode textarea:focus{background:rgba(255,255,255,0.9);border-color:var(--gold)}
+body.light-mode textarea::placeholder{color:rgba(90,80,64,0.45)}
+body.light-mode .dig-toggle{background:rgba(138,104,32,0.07)}
+body.light-mode .dig-toggle:hover{background:rgba(138,104,32,0.14)}
+body.light-mode .hero-overlay{
+  background:linear-gradient(to bottom,rgba(249,246,240,0.1) 0%,rgba(249,246,240,0) 30%,rgba(249,246,240,0.55) 62%,rgba(249,246,240,0.96) 100%)
+}
+
+/* ═══ MODE + PRINT BUTTONS ═══ */
+.mode-btn,.print-btn{
+  padding:7px 15px;border-radius:20px;border:1px solid var(--border);
+  background:transparent;color:var(--gold);font-family:system-ui,sans-serif;
+  font-size:.78rem;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;
+}
+.mode-btn:hover,.print-btn:hover{background:rgba(201,168,76,0.12);color:var(--lgold)}
+
+/* ═══ PRINT ═══ */
+@media print{
+  /* hide navigation & hero */
+  #hero,#topnav,#progress-wrap,.nav-row,.dig-toggle{display:none!important}
+
+  /* light background */
+  body,#content,.wrapper{background:#fff!important;color:#111!important}
+  .lesson,.lesson-head,.lesson-body{background:#fff!important}
+  .lesson-session-label{color:#8a6820!important}
+  .lesson-title{color:#5a3e10!important}
+
+  /* prayer / intro */
+  .prayer{background:#faf7f0!important;border-left:3px solid #8a6820!important;color:#444!important}
+  .intro{color:#222!important}
+
+  /* segments */
+  .seg{background:#fafafa!important;border:1px solid #ddd!important}
+  .seg-title{color:#5a3e10!important}
+
+  /* scripture */
+  .scripture{background:#f5f2ec!important;border-left:3px solid #8a6820!important;color:#222!important}
+  .sref{color:#8a6820!important}
+
+  /* questions */
+  .ql{color:#222!important}
+  textarea{
+    background:#f9f9f9!important;border:1px solid #ccc!important;
+    color:#111!important;min-height:50px!important;
+    height:auto!important;overflow:visible!important;
+  }
+
+  /* memorize / journal */
+  .memorize{background:#faf7f0!important;border:1px solid #d4b87a!important;color:#5a3e10!important}
+  .journal{background:#fafafa!important;border:1px dashed #ccc!important}
+  .journal h3{color:#8a6820!important}
+
+  /* expand all dig-deeper sections automatically */
+  .dig{border:1px solid #ddd!important;break-inside:avoid}
+  .dig-body{display:block!important;padding:16px 18px!important;background:#fafafa!important}
+  .dig-body p,.dig-body .ref{color:#333!important}
+  .dig-body .ql{color:#222!important}
+
+  /* toc / complete */
+  .toc-block{background:#fafafa!important;border:1px solid #ddd!important}
+  .toc-block h3{color:#8a6820!important}
+  .toc-item{color:#222!important}
+  .prog-summary{color:#555!important}
+  #complete h2{color:#5a3e10!important}
+  #complete p{color:#444!important}
+
+  /* page breaks */
+  .seg{break-inside:avoid;page-break-inside:avoid}
+  .lesson-head{break-after:avoid;page-break-after:avoid}
 }
 </style>
 </head>
@@ -320,6 +402,8 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
 <nav id="topnav">
   <div class="nav-title" onclick="goHome()">Jesus and Me</div>
   <div class="nav-indicator" id="nav-indicator"></div>
+  <button class="mode-btn" id="mode-btn" onclick="toggleMode()">☀ Light</button>
+  <button class="print-btn" onclick="window.print()">⎙ Print</button>
   <button class="nav-contents-btn" onclick="showTOC()">☰ Contents</button>
 </nav>
 
@@ -1906,7 +1990,22 @@ function toggleDig(btn){
   btn.nextElementSibling.classList.toggle('open');
 }
 
-document.addEventListener('DOMContentLoaded', init);
+// ═══ LIGHT / DARK MODE ═══
+function toggleMode(){
+  const light = document.body.classList.toggle('light-mode');
+  document.getElementById('mode-btn').textContent = light ? '☾ Dark' : '☀ Light';
+  localStorage.setItem('jem-mode', light ? 'light' : 'dark');
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  // restore saved colour mode
+  if(localStorage.getItem('jem-mode')==='light'){
+    document.body.classList.add('light-mode');
+    const mb = document.getElementById('mode-btn');
+    if(mb) mb.textContent='☾ Dark';
+  }
+  init();
+});
 </script>
 </body>
 </html>
