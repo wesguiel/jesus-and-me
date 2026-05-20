@@ -314,53 +314,69 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
   #topnav{gap:8px}
 }
 
-/* ═══ VERSE POPUP ═══ */
+/* ═══ VERSE PANEL (draggable) ═══ */
 .ref{
   color:var(--gold);font-style:italic;font-size:.82rem;
   cursor:pointer;border-bottom:1px dotted rgba(201,168,76,0.5);
   transition:color .2s,border-color .2s;
 }
 .ref:hover{color:var(--lgold);border-bottom-color:var(--lgold)}
-#verse-popup{
-  display:none;position:fixed;inset:0;z-index:300;
-  align-items:center;justify-content:center;padding:24px;
-  background:rgba(4,10,20,0.75);backdrop-filter:blur(6px);
-}
-#verse-popup.open{display:flex}
-#verse-card{
+#verse-panel{
+  display:none;position:fixed;z-index:300;
+  width:340px;max-width:calc(100vw - 24px);
+  max-height:70vh;
   background:var(--deep);border:1px solid var(--border);
-  border-radius:var(--radius);padding:32px 36px 28px;
-  max-width:580px;width:100%;max-height:80vh;overflow-y:auto;
-  position:relative;animation:fadeUp .25s ease;
+  border-radius:var(--radius);
+  box-shadow:0 12px 48px rgba(0,0,0,0.55);
+  flex-direction:column;overflow:hidden;
+  bottom:88px;right:20px;
+  animation:fadeUp .2s ease;
 }
-#verse-card .vp-ref{
-  font-family:system-ui,sans-serif;font-size:.68rem;
-  letter-spacing:.22em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:16px;
+#verse-panel.open{display:flex}
+#verse-handle{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;
+  background:rgba(201,168,76,0.09);
+  border-bottom:1px solid var(--border);
+  cursor:grab;user-select:none;flex-shrink:0;
 }
-#verse-card .vp-text{
-  font-size:.93rem;line-height:1.85;color:var(--cream);
-  white-space:pre-wrap;
+#verse-handle:active{cursor:grabbing}
+#verse-handle-label{
+  font-family:system-ui,sans-serif;font-size:.62rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:6px;
 }
-#verse-card .vp-footer{
-  margin-top:18px;padding-top:14px;border-top:1px solid var(--border);
-  font-family:system-ui,sans-serif;font-size:.65rem;
-  letter-spacing:.1em;color:var(--muted);
-}
+#verse-handle-label::before{content:'⠿';font-size:.85rem;opacity:.5}
 #verse-close{
-  position:absolute;top:14px;right:16px;
   background:none;border:none;color:var(--muted);
-  font-size:1.1rem;cursor:pointer;line-height:1;
-  transition:color .2s;padding:4px;
+  font-size:1rem;cursor:pointer;line-height:1;
+  transition:color .2s;padding:2px 4px;flex-shrink:0;
 }
 #verse-close:hover{color:var(--cream)}
+#verse-body{
+  padding:18px 20px 16px;overflow-y:auto;flex:1;
+}
+#verse-body .vp-ref{
+  font-family:system-ui,sans-serif;font-size:.65rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+}
+#verse-body .vp-text{
+  font-size:.88rem;line-height:1.85;color:var(--cream);
+  white-space:pre-wrap;
+}
+#verse-body .vp-footer{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--border);
+  font-family:system-ui,sans-serif;font-size:.62rem;
+  letter-spacing:.08em;color:var(--muted);
+}
 #verse-loading{
   text-align:center;color:var(--muted);
-  font-style:italic;padding:24px 0;font-size:.9rem;
+  font-style:italic;padding:20px 0;font-size:.88rem;
 }
-body.light-mode #verse-card{background:#f0ebe0}
-@media(max-width:640px){#verse-card{padding:24px 20px 20px}}
-@media print{#verse-popup{display:none!important}}
+body.light-mode #verse-panel{background:#f0ebe0}
+body.light-mode #verse-handle{background:rgba(138,104,32,0.08)}
+@media print{#verse-panel{display:none!important}}
 
 /* ═══ LIGHT MODE ═══ */
 body.light-mode{
@@ -2061,9 +2077,13 @@ body.light-mode .hero-overlay{
 </div><!-- /wrapper -->
 </div><!-- /content -->
 
-<!-- ═══ VERSE POPUP ═══ -->
-<div id="verse-popup" onclick="if(event.target===this)closeVerse()">
-  <div id="verse-card"></div>
+<!-- ═══ VERSE PANEL ═══ -->
+<div id="verse-panel">
+  <div id="verse-handle">
+    <span id="verse-handle-label">Scripture</span>
+    <button id="verse-close" onclick="closeVerse()" title="Close">✕</button>
+  </div>
+  <div id="verse-body"></div>
 </div>
 
 <script>
@@ -2203,7 +2223,7 @@ function toggleDig(btn){
   btn.nextElementSibling.classList.toggle('open');
 }
 
-// ═══ ESV VERSE POPUP ═══
+// ═══ ESV VERSE PANEL ═══
 const ESV_KEY = '1af05754720ccb22500e9ff962aab8d0bf6d9f16';
 const verseCache = {};
 
@@ -2216,18 +2236,20 @@ function initVersePopup(){
     });
   });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeVerse(); });
+  initDrag();
 }
 
 async function showVerse(ref){
-  const popup = document.getElementById('verse-popup');
-  const card  = document.getElementById('verse-card');
-  popup.classList.add('open');
-  card.innerHTML = `<button id="verse-close" onclick="closeVerse()">✕</button><div id="verse-loading">Loading…</div>`;
+  const panel = document.getElementById('verse-panel');
+  const body  = document.getElementById('verse-body');
+  const label = document.getElementById('verse-handle-label');
+  panel.classList.add('open');
+  label.textContent = ref;
+  body.innerHTML = `<div id="verse-loading">Loading…</div>`;
 
-  if(verseCache[ref]){ card.innerHTML = verseCache[ref]; return; }
+  if(verseCache[ref]){ body.innerHTML = verseCache[ref]; return; }
 
   try{
-    // Convert "Ref1; Ref2" → "Ref1+Ref2" so the ESV API returns all passages
     const query = ref.split(/;\s*/).join('+');
     const url = `https://api.esv.org/v3/passage/text/?q=${encodeURIComponent(query)}`
       + `&include-headings=false&include-footnotes=false`
@@ -2238,24 +2260,53 @@ async function showVerse(ref){
     const passages = (data.passages||[]).map(p=>p.trim()).filter(Boolean);
     const text = passages.length ? passages.join('\n\n') : 'Passage not found.';
     const html = `
-      <button id="verse-close" onclick="closeVerse()">✕</button>
-      <div class="vp-ref">${ref}</div>
       <div class="vp-text">${text.replace(/</g,'&lt;')}</div>
       <div class="vp-footer">ESV® Bible · © 2001 Crossway · Used by permission</div>`;
     verseCache[ref] = html;
-    card.innerHTML = html;
+    body.innerHTML = html;
   } catch(err){
-    card.innerHTML = `
-      <button id="verse-close" onclick="closeVerse()">✕</button>
-      <div class="vp-ref">${ref}</div>
-      <div class="vp-text" style="color:var(--muted);font-style:italic">
-        Unable to load passage — please look up ${ref} in your Bible.
-      </div>`;
+    body.innerHTML = `<div class="vp-text" style="color:var(--muted);font-style:italic">Unable to load — look up ${ref} in your Bible.</div>`;
   }
 }
 
 function closeVerse(){
-  document.getElementById('verse-popup').classList.remove('open');
+  document.getElementById('verse-panel').classList.remove('open');
+}
+
+function initDrag(){
+  const panel  = document.getElementById('verse-panel');
+  const handle = document.getElementById('verse-handle');
+  let dragging=false, ox=0, oy=0;
+
+  function startDrag(cx,cy){
+    dragging = true;
+    const r = panel.getBoundingClientRect();
+    // switch to top/left absolute positioning
+    panel.style.right  = 'auto';
+    panel.style.bottom = 'auto';
+    panel.style.left   = r.left+'px';
+    panel.style.top    = r.top+'px';
+    ox = cx - r.left;
+    oy = cy - r.top;
+  }
+  function moveDrag(cx,cy){
+    if(!dragging) return;
+    const maxX = window.innerWidth  - panel.offsetWidth;
+    const maxY = window.innerHeight - panel.offsetHeight;
+    panel.style.left = Math.max(0,Math.min(maxX, cx-ox))+'px';
+    panel.style.top  = Math.max(0,Math.min(maxY, cy-oy))+'px';
+  }
+  function endDrag(){ dragging=false; }
+
+  // Mouse
+  handle.addEventListener('mousedown', e=>{ startDrag(e.clientX,e.clientY); e.preventDefault(); });
+  document.addEventListener('mousemove', e=>moveDrag(e.clientX,e.clientY));
+  document.addEventListener('mouseup',  endDrag);
+
+  // Touch
+  handle.addEventListener('touchstart', e=>{ const t=e.touches[0]; startDrag(t.clientX,t.clientY); }, {passive:true});
+  document.addEventListener('touchmove', e=>{ if(!dragging)return; const t=e.touches[0]; moveDrag(t.clientX,t.clientY); e.preventDefault(); }, {passive:false});
+  document.addEventListener('touchend',  endDrag);
 }
 
 // ═══ LIGHT / DARK MODE ═══
