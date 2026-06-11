@@ -311,6 +311,7 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
   .hero-scriptures{gap:10px}
   .hero-scripture-block{padding:10px 16px}
   .mode-btn,.print-btn{padding:5px 10px;font-size:.72rem}
+  .print-menu{right:0}
   #topnav{gap:8px}
 }
 
@@ -403,6 +404,23 @@ body.light-mode .hero-overlay{
 }
 .mode-btn:hover,.print-btn:hover{background:rgba(201,168,76,0.12);color:var(--lgold)}
 
+/* ═══ PRINT DROPDOWN ═══ */
+.print-wrap{position:relative;display:inline-block}
+.print-menu{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:var(--deep);border:1px solid var(--border);border-radius:10px;
+  z-index:500;min-width:155px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+.print-menu.open{display:block}
+.print-menu button{
+  display:block;width:100%;padding:10px 16px;
+  background:transparent;border:none;color:var(--cream);
+  font-family:system-ui,sans-serif;font-size:.78rem;letter-spacing:.01em;
+  text-align:left;cursor:pointer;transition:background .15s,color .15s;
+}
+.print-menu button:hover{background:rgba(201,168,76,0.12);color:var(--lgold)}
+.print-menu hr{border:none;border-top:1px solid var(--border);margin:0}
+
 /* ═══ PRINT ═══ */
 @media print{
   /* hide navigation & hero */
@@ -467,7 +485,16 @@ body.light-mode .hero-overlay{
   <div class="nav-title" onclick="goHome()">Jesus and Me</div>
   <div class="nav-indicator" id="nav-indicator"></div>
   <button class="mode-btn" id="mode-btn" onclick="toggleMode()">☀ Light</button>
-  <button class="print-btn" onclick="window.print()">⎙ Print</button>
+  <div class="print-wrap" id="print-wrap">
+    <button class="print-btn" onclick="togglePrintMenu()">⎙ Print ▾</button>
+    <div class="print-menu" id="print-menu">
+      <button onclick="printLesson()">This Lesson</button>
+      <hr>
+      <button onclick="printSection()">This Section</button>
+      <hr>
+      <button onclick="printAll()">All Lessons</button>
+    </div>
+  </div>
   <button class="nav-contents-btn" onclick="showTOC()">☰ Contents</button>
 </nav>
 
@@ -2307,6 +2334,42 @@ function initDrag(){
   handle.addEventListener('touchstart', e=>{ const t=e.touches[0]; startDrag(t.clientX,t.clientY); }, {passive:true});
   document.addEventListener('touchmove', e=>{ if(!dragging)return; const t=e.touches[0]; moveDrag(t.clientX,t.clientY); e.preventDefault(); }, {passive:false});
   document.addEventListener('touchend',  endDrag);
+}
+
+// ═══ PRINT MENU ═══
+function togglePrintMenu(){
+  document.getElementById('print-menu').classList.toggle('open');
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('#print-wrap'))
+    document.getElementById('print-menu').classList.remove('open');
+});
+function printLesson(){
+  document.getElementById('print-menu').classList.remove('open');
+  if(!current){ alert('Please open a lesson first.'); return; }
+  window.print();
+}
+function printSection(){
+  document.getElementById('print-menu').classList.remove('open');
+  if(!current){ alert('Please open a lesson first.'); return; }
+  const sec = LESSONS.find(l=>l.n===current).s;
+  const toShow = LESSONS.filter(l=>l.s===sec && l.n!==current).map(l=>l.n);
+  toShow.forEach(n=>document.getElementById('lesson-'+n).classList.add('active'));
+  window.onafterprint = ()=>{
+    toShow.forEach(n=>document.getElementById('lesson-'+n).classList.remove('active'));
+    window.onafterprint = null;
+  };
+  window.print();
+}
+function printAll(){
+  document.getElementById('print-menu').classList.remove('open');
+  const toShow = LESSONS.map(l=>l.n).filter(n=>n!==current);
+  toShow.forEach(n=>document.getElementById('lesson-'+n).classList.add('active'));
+  window.onafterprint = ()=>{
+    toShow.forEach(n=>document.getElementById('lesson-'+n).classList.remove('active'));
+    window.onafterprint = null;
+  };
+  window.print();
 }
 
 // ═══ LIGHT / DARK MODE ═══
