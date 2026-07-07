@@ -359,6 +359,8 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
 @media(max-width:640px){
   #hero{height:60vh;min-height:420px}
   .hero-photo{background-position:60% 25%}
+  .hero-corner{display:none}
+  .mode-btn,.print-wrap{display:none}
 
   .lesson-head,.lesson-body{padding:24px 20px}
   .seg{padding:18px 16px}
@@ -367,10 +369,15 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
   .btn{width:100%;text-align:center}
   .hero-scriptures{gap:10px}
   .hero-scripture-block{padding:10px 16px}
-  .mode-btn,.print-btn{padding:5px 10px;font-size:.72rem}
   .print-menu{right:0}
   #topnav{gap:8px}
+  .mobile-tools{display:flex}
 }
+.mobile-tools{
+  display:none;gap:10px;margin-bottom:22px;
+}
+.mobile-tools .mode-btn,
+.mobile-tools .print-wrap{display:block}
 
 /* ═══ VERSE PANEL (draggable) ═══ */
 .ref{
@@ -664,6 +671,19 @@ body.light-mode .hero-overlay{
 
 <!-- TOC -->
 <div id="toc-section">
+  <div class="mobile-tools">
+    <button class="mode-btn" id="mode-btn-mobile" onclick="toggleMode()">☀ Light</button>
+    <div class="print-wrap" id="print-wrap-mobile">
+      <button class="print-btn" onclick="togglePrintMenu()">⎙ Print ▾</button>
+      <div class="print-menu" id="print-menu-mobile">
+        <button onclick="printLesson()">This Lesson</button>
+        <hr>
+        <button onclick="printSection()">This Section</button>
+        <hr>
+        <button onclick="printAll()">All Lessons</button>
+      </div>
+    </div>
+  </div>
   <h2>Contents — Jesus and Me</h2>
   <div class="toc-block">
     <h3>Session One — My Call</h3>
@@ -2279,7 +2299,7 @@ function init(){
   });
   buildTOC(); updateProgress();
   const last = parseInt(localStorage.getItem('jem-current')||'0');
-  if(last>0) goToSilent(last); else showTOCSilent();
+  if(last>0) goToSilent(last); else showIntroSilent();
 }
 
 // silent versions used on init — no scroll
@@ -2302,6 +2322,14 @@ function showTOCSilent(){
   document.getElementById('complete').classList.remove('active');
   document.getElementById('nav-indicator').textContent='';
   localStorage.setItem('jem-current','0');
+}
+function showIntroSilent(){
+  current = 0;
+  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('toc-section').style.display='none';
+  document.getElementById('intro-section').classList.add('active');
+  document.getElementById('complete').classList.remove('active');
+  document.getElementById('nav-indicator').textContent='Introduction';
 }
 
 // ═══ HERO ═══
@@ -2477,20 +2505,32 @@ function initDrag(){
 }
 
 // ═══ PRINT MENU ═══
+function closeAllPrintMenus(){
+  ['print-menu','print-menu-mobile'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.classList.remove('open');
+  });
+}
 function togglePrintMenu(){
-  document.getElementById('print-menu').classList.toggle('open');
+  const m=document.getElementById('print-menu');
+  const mm=document.getElementById('print-menu-mobile');
+  const isOpen = (m&&m.classList.contains('open'))||(mm&&mm.classList.contains('open'));
+  closeAllPrintMenus();
+  if(!isOpen){
+    if(mm&&mm.closest('.mobile-tools')&&getComputedStyle(mm.closest('.mobile-tools')).display!=='none') mm.classList.add('open');
+    else if(m) m.classList.add('open');
+  }
 }
 document.addEventListener('click', e=>{
-  if(!e.target.closest('#print-wrap'))
-    document.getElementById('print-menu').classList.remove('open');
+  if(!e.target.closest('#print-wrap') && !e.target.closest('#print-wrap-mobile'))
+    closeAllPrintMenus();
 });
 function printLesson(){
-  document.getElementById('print-menu').classList.remove('open');
+  closeAllPrintMenus();
   if(!current){ alert('Please open a lesson first.'); return; }
   window.print();
 }
 function printSection(){
-  document.getElementById('print-menu').classList.remove('open');
+  closeAllPrintMenus();
   if(!current){ alert('Please open a lesson first.'); return; }
   const sec = LESSONS.find(l=>l.n===current).s;
   const toShow = LESSONS.filter(l=>l.s===sec && l.n!==current).map(l=>l.n);
@@ -2502,7 +2542,7 @@ function printSection(){
   window.print();
 }
 function printAll(){
-  document.getElementById('print-menu').classList.remove('open');
+  closeAllPrintMenus();
   const toShow = LESSONS.map(l=>l.n).filter(n=>n!==current);
   toShow.forEach(n=>document.getElementById('lesson-'+n).classList.add('active'));
   window.onafterprint = ()=>{
@@ -2515,7 +2555,10 @@ function printAll(){
 // ═══ LIGHT / DARK MODE ═══
 function toggleMode(){
   const light = document.body.classList.toggle('light-mode');
-  document.getElementById('mode-btn').textContent = light ? '☾ Dark' : '☀ Light';
+  const label = light ? '☾ Dark' : '☀ Light';
+  ['mode-btn','mode-btn-mobile'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.textContent=label;
+  });
   localStorage.setItem('jem-mode', light ? 'light' : 'dark');
 }
 
