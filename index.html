@@ -20,7 +20,7 @@ body{font-family:Georgia,serif;background:var(--navy);color:var(--cream);overflo
 }
 .hero-photo{
   position:absolute;inset:0;
-  background:url('lighthouse2.jpg') center 60%/cover no-repeat;
+  background:url('Lighthouse3.png') center 30%/cover no-repeat;
   transform-origin:center center;
   animation:kenBurns 14s ease-in-out infinite alternate;
   will-change:transform;
@@ -357,6 +357,8 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
 
 /* responsive */
 @media(max-width:640px){
+  .hero-photo{background-position:72% 20%}
+
   .lesson-head,.lesson-body{padding:24px 20px}
   .seg{padding:18px 16px}
   .toc-block{padding:18px 16px}
