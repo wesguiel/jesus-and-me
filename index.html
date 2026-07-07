@@ -168,6 +168,60 @@ body{font-family:Georgia,serif;background:var(--navy);color:var(--cream);overflo
 /* Lesson card */
 .lesson{display:none;animation:fadeUp .4s ease}
 .lesson.active{display:block}
+
+/* ═══ INTRO PAGE ═══ */
+#intro-section{display:none;animation:fadeUp .4s ease}
+#intro-section.active{display:block}
+.intro-lead{
+  background:rgba(201,168,76,0.06);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 22px;margin-bottom:24px;
+  font-size:.92rem;line-height:1.85;color:var(--cream);opacity:.9;
+}
+.intro-para{
+  font-size:.93rem;line-height:1.85;color:var(--cream);opacity:.9;
+  margin-bottom:18px;
+}
+.intro-session-card{
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 22px;margin-bottom:14px;background:var(--card);
+}
+.intro-session-num{
+  font-family:system-ui,sans-serif;font-size:.66rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:4px;
+}
+.intro-session-title{
+  font-size:1rem;color:var(--lgold);margin-bottom:8px;
+}
+.intro-session-body{
+  font-size:.9rem;line-height:1.8;color:var(--cream);opacity:.88;
+}
+.intro-subhead{
+  font-family:system-ui,sans-serif;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);margin:28px 0 12px;
+  border-bottom:1px solid var(--border);padding-bottom:8px;
+}
+.intro-ol{padding-left:0;list-style:none;margin-bottom:18px}
+.intro-ol li{
+  display:flex;gap:14px;margin-bottom:12px;
+  font-size:.9rem;line-height:1.75;color:var(--cream);opacity:.9;
+}
+.intro-ol-num{
+  flex-shrink:0;width:26px;height:26px;border-radius:50%;
+  background:rgba(201,168,76,0.12);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:system-ui,sans-serif;font-size:.75rem;color:var(--gold);
+  margin-top:1px;
+}
+.intro-scripture-block{
+  background:rgba(201,168,76,0.06);border-left:3px solid var(--gold);
+  border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;
+  font-size:.88rem;line-height:1.8;color:var(--cream);opacity:.9;
+}
+.intro-scripture-ref{
+  display:block;font-size:.72rem;color:var(--gold);
+  font-style:italic;font-weight:bold;margin-bottom:6px;
+  font-family:system-ui,sans-serif;
+}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 .lesson-head{padding:36px 40px 28px;border-bottom:1px solid var(--border)}
@@ -538,6 +592,72 @@ body.light-mode .hero-overlay{
 <!-- ═══ CONTENT ═══ -->
 <div id="content">
 <div class="wrapper">
+
+<!-- INTRODUCTION -->
+<div id="intro-section">
+  <div class="lesson-head">
+    <div class="lesson-session-label">Please Read Before Starting Your Study</div>
+    <div class="lesson-title">Introduction</div>
+  </div>
+  <div class="lesson-body">
+
+    <div class="intro-lead">
+      At the present time this biblical review is available in English at jesusandme.online. Our goal is to present it in more languages as doors open. The world is in our hands through the computer and cell phone!
+    </div>
+
+    <p class="intro-para"><strong>"Jesus and Me"</strong> is a Bible study for those who want to walk more deeply with Jesus Christ and serve Him with diligence. It is intended for mature Jesus followers, new believers and those searching for real meaning in life.</p>
+
+    <p class="intro-para">Please spend time in these introductory pages before you start <em>Jesus and Me</em> as a study. It is important to understand the reasons for this study and the methods used throughout. Included are three segments:</p>
+
+    <div class="intro-session-card">
+      <div class="intro-session-num">Session 1</div>
+      <div class="intro-session-title">My Call</div>
+      <div class="intro-session-body">This section introduces you to the validity of the Bible — can I trust the Bible as an authority for my life, and how can it speak into my life? It introduces me to God Almighty and to His Son Jesus Christ. The fourth lesson is entitled "God's Seven Gifts from the Cross". Many know about the cross. They see it on churches and hung around necks. Few know how it applies to their own lives. Understanding these gifts from God helps you to have a firm foundation for your faith and a method to explain this good news to your friends, family and neighbors.</div>
+    </div>
+
+    <div class="intro-session-card">
+      <div class="intro-session-num">Session 2</div>
+      <div class="intro-session-title">My Character</div>
+      <div class="intro-session-body">The change in your character begins when you invite Jesus Christ into your inner being. From that moment you begin to grow. His shed blood on the cross has made you holy. You have become the temple of God. Holiness is God's character living in you. Righteousness is the way you live the rest of your life. The Bible gives you the steps to grow into God's likeness and promises you a grand entrance into the eternal kingdom of Jesus Christ our Lord. You now can say "Jesus and Me" with confidence.</div>
+    </div>
+
+    <div class="intro-session-card">
+      <div class="intro-session-num">Session 3</div>
+      <div class="intro-session-title">My Co-Mission</div>
+      <div class="intro-session-body">God has now prepared me for my personal mission on earth. He can trust me to not bring Him shame. Jesus said "Let your light shine". He wants others to see Himself in me. My mission may be in a far away country or it could well be right where I live. Jesus added, "The greatest commandment is to love God with all your heart and your neighbor as yourself." The greatest gift I can ever receive or give away is Jesus Christ. He wants me to share Him with others. The focus of this study is: my home is a lighthouse. Imagine how my neighborhood could enjoy the life I am living — with Jesus! God's plan from the beginning was to be fruitful and multiply. He wants me to be a fruitful participant in the final harvest. "Jesus and Me" will help me fulfill God's calling.</div>
+    </div>
+
+    <div class="intro-subhead">Lesson Components</div>
+    <p class="intro-para">A Key Bible Verse introduces the main lesson theme. An introductory paragraph outlines the lesson content. Five or six sections are found within each lesson.</p>
+    <p class="intro-para"><strong>Using Dig Deeper — Extended Study.</strong> This is for those who want more information from the current lesson. It will take more time to complete. You can finish it at your own pace in your own time. Enjoy! Tap the arrow on the right, then tap the reference written in italics — the texts for the current question are now visible. We suggest that you type each reference (e.g. John 3:16) in the answer block and then your answer behind it. This helps keep good order for your answers.</p>
+
+    <div class="intro-subhead">My Personal Study</div>
+    <p class="intro-para">We recommend you commence the study today. Take your time. Be thorough. Ask the Holy Spirit to reveal God's truths to you. Each set of scriptures has an answer box you can use. Once filled, your answers will be permanent on the device you are using. They do not transfer from device to device.</p>
+    <p class="intro-para">There are six actions for your use in each segment:</p>
+    <ol class="intro-ol">
+      <li><span class="intro-ol-num">1</span><span>Read and meditate on the Word. Take your time. There is no hurry.</span></li>
+      <li><span class="intro-ol-num">2</span><span>Apply the truths to your own life. Expect God's Word to speak into your inner being.</span></li>
+      <li><span class="intro-ol-num">3</span><span>Journal. Journaling causes you to think deeply and allows for recall in the days ahead.</span></li>
+      <li><span class="intro-ol-num">4</span><span>Pray. Seek God's guidance. Assimilate what He wants you to understand and live out.</span></li>
+      <li><span class="intro-ol-num">5</span><span>Attend a small group study. Spend as much time as possible completing the questions in each lesson before you discuss it with others. In this way you not only share what the Lord has shown you but you learn what the Lord has shown them.</span></li>
+      <li><span class="intro-ol-num">6</span><span><strong>Take Action!</strong> Obey the Holy Spirit! Share your insights with others. Become a light to the world. Make your home a lighthouse.</span></li>
+    </ol>
+
+    <div class="intro-subhead">Small Groups</div>
+    <p class="intro-para">Ask the Lord to help you build a small group from family, friends or neighbors. Prepare yourself as a Group Facilitator. Allow the Holy Spirit to be the teacher. You are there to encourage and motivate each member. Be a good example.</p>
+    <div class="intro-scripture-block">
+      <span class="intro-scripture-ref">1 Corinthians 2:13</span>We also speak these things, not in words which man's wisdom teaches but which the Holy Spirit teaches, comparing spiritual things with spiritual things.
+    </div>
+    <p class="intro-para">We recommend that you keep your group small. Larger is not better. We suggest three to eight members. This allows for good interaction.</p>
+
+    <div class="intro-subhead">Multiplication</div>
+    <p class="intro-para">The vision is that each group member would listen to the guidance of the Holy Spirit and look for opportunity to lead a group, and encourage other group members to do the same. The notes you have already typed or spoken into your device become the basis of your own part in the discussion.</p>
+
+    <div class="nav-row" style="margin-top:32px;justify-content:flex-end">
+      <button class="btn btn-next" onclick="showTOC()">Begin Study →</button>
+    </div>
+  </div>
+</div>
 
 <!-- TOC -->
 <div id="toc-section">
@@ -2173,6 +2293,7 @@ function goToSilent(n){
   current = n;
   document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
   document.getElementById('toc-section').style.display='none';
+  document.getElementById('intro-section').classList.remove('active');
   document.getElementById('complete').classList.remove('active');
   const el = document.getElementById('lesson-'+n);
   if(el){ el.classList.add('active'); }
@@ -2182,6 +2303,7 @@ function goToSilent(n){
 function showTOCSilent(){
   current = 0;
   document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('intro-section').classList.remove('active');
   document.getElementById('toc-section').style.display='';
   document.getElementById('complete').classList.remove('active');
   document.getElementById('nav-indicator').textContent='';
@@ -2192,6 +2314,11 @@ function showTOCSilent(){
 function startStudy(){
   const photo = document.querySelector('.hero-photo');
   if(photo){ photo.style.animation='kenBurnsIn 1.8s ease forwards'; }
+  document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('toc-section').style.display='none';
+  document.getElementById('complete').classList.remove('active');
+  document.getElementById('intro-section').classList.add('active');
+  document.getElementById('nav-indicator').textContent='Introduction';
   document.getElementById('content').scrollIntoView({behavior:'smooth'});
 }
 
@@ -2200,6 +2327,7 @@ function goTo(n){
   current = n;
   document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
   document.getElementById('toc-section').style.display='none';
+  document.getElementById('intro-section').classList.remove('active');
   document.getElementById('complete').classList.remove('active');
   const el = document.getElementById('lesson-'+n);
   if(el){ el.classList.add('active'); }
@@ -2210,6 +2338,7 @@ function goTo(n){
 function showTOC(){
   current = 0;
   document.querySelectorAll('.lesson').forEach(l=>l.classList.remove('active'));
+  document.getElementById('intro-section').classList.remove('active');
   document.getElementById('toc-section').style.display='';
   document.getElementById('complete').classList.remove('active');
   document.getElementById('nav-indicator').textContent='';
