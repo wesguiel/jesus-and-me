@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jesus and Me — Lighthouse Fellowship</title>
+<title>Jesus and Me</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -404,6 +404,17 @@ body.light-mode .hero-overlay{
 }
 .mode-btn:hover,.print-btn:hover{background:rgba(201,168,76,0.12);color:var(--lgold)}
 
+/* ═══ FOOTER ═══ */
+#site-footer{
+  text-align:center;padding:28px 20px;
+  border-top:1px solid var(--border);
+  margin-top:0;
+}
+.footer-logo{
+  font-family:system-ui,sans-serif;font-size:.72rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--muted);
+}
+
 /* ═══ PRINT DROPDOWN ═══ */
 .print-wrap{position:relative;display:inline-block}
 .print-menu{
@@ -507,9 +518,9 @@ body.light-mode .hero-overlay{
     <span class="hero-corner-link" onclick="startStudy();setTimeout(()=>goTo(13),2200)">✦ My Home is a Lighthouse</span>
   </div>
   <div class="hero-text">
-    <div class="hero-org">Lighthouse Fellowship · Seeds International</div>
+    <div class="hero-org">A Bible Study</div>
     <h1 class="hero-h1">Jesus and Me</h1>
-    <div class="hero-sub">A Bible Study by Keith Parks</div>
+    <div class="hero-sub">A Bible Study by Keith Parks with Fred Fulford</div>
     <div class="hero-scriptures">
       <div class="hero-scripture-block">
         <div class="hero-scripture-text">"I am the light of the world."</div>
@@ -2098,14 +2109,19 @@ body.light-mode .hero-overlay{
   <h2>You have finished well.</h2>
   <p>"For thus you will be richly supplied with the entrance into the eternal Kingdom of our Lord and Savior, Jesus Christ." — 2 Peter 1:11</p>
   <p>Congratulations on completing <em>Jesus and Me</em>. Our prayer for you is that you will be fruitful and multiply the Kingdom of our Lord Jesus Christ.</p>
-  <p style="color:var(--gold);font-style:italic;margin-top:16px">— Keith Parks, Lighthouse Fellowship</p>
+  <p style="color:var(--gold);font-style:italic;margin-top:16px">— Keith Parks with Fred Fulford</p>
   <button class="btn btn-toc" style="margin-top:28px" onclick="showTOC()">← Review Contents</button>
 </div>
 
 </div><!-- /wrapper -->
 </div><!-- /content -->
 
-<!-- ═══ VERSE PANEL ═══ -->
+<!-- ═══ FOOTER ═══ -->
+<footer id="site-footer">
+  <div class="footer-inner">
+    <span class="footer-logo">Seeds International</span>
+  </div>
+</footer>
 <div id="verse-panel">
   <div id="verse-handle">
     <span id="verse-handle-label">Scripture</span>
