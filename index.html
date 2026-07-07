@@ -360,7 +360,8 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
   #hero{height:60vh;min-height:420px}
   .hero-photo{background-position:60% 25%}
   .print-wrap{display:none}
-  .mode-btn{padding:6px 10px;font-size:.7rem}
+  .mode-btn .btn-text{display:none}
+  .mode-btn{padding:7px 11px}
 
   .lesson-head,.lesson-body{padding:24px 20px}
   .seg{padding:18px 16px}
@@ -559,7 +560,7 @@ body.light-mode .hero-overlay{
 <nav id="topnav">
   <div class="nav-title" onclick="goHome()">Jesus and Me</div>
   <div class="nav-indicator" id="nav-indicator"></div>
-  <button class="mode-btn" id="mode-btn" onclick="toggleMode()">☀ Light</button>
+  <button class="mode-btn" id="mode-btn" onclick="toggleMode()"><span class="btn-icon">☀</span><span class="btn-text"> Light</span></button>
   <div class="print-wrap" id="print-wrap">
     <button class="print-btn" onclick="togglePrintMenu()">⎙ Print ▾</button>
     <div class="print-menu" id="print-menu">
@@ -672,7 +673,7 @@ body.light-mode .hero-overlay{
 <!-- TOC -->
 <div id="toc-section">
   <div class="mobile-tools">
-    <button class="mode-btn" id="mode-btn-mobile" onclick="toggleMode()">☀ Light</button>
+    <button class="mode-btn" id="mode-btn-mobile" onclick="toggleMode()"><span class="btn-icon">☀</span><span class="btn-text"> Light</span></button>
     <div class="print-wrap" id="print-wrap-mobile">
       <button class="print-btn" onclick="togglePrintMenu()">⎙ Print ▾</button>
       <div class="print-menu" id="print-menu-mobile">
@@ -2553,12 +2554,18 @@ function printAll(){
 }
 
 // ═══ LIGHT / DARK MODE ═══
+function setModeButtons(light){
+  const icon = light ? '☾' : '☀';
+  const text = light ? ' Dark' : ' Light';
+  ['mode-btn','mode-btn-mobile'].forEach(id=>{
+    const el = document.getElementById(id); if(!el) return;
+    const i = el.querySelector('.btn-icon'); const t = el.querySelector('.btn-text');
+    if(i) i.textContent=icon; if(t) t.textContent=text;
+  });
+}
 function toggleMode(){
   const light = document.body.classList.toggle('light-mode');
-  const label = light ? '☾ Dark' : '☀ Light';
-  ['mode-btn','mode-btn-mobile'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.textContent=label;
-  });
+  setModeButtons(light);
   localStorage.setItem('jem-mode', light ? 'light' : 'dark');
 }
 
@@ -2566,8 +2573,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // restore saved colour mode
   if(localStorage.getItem('jem-mode')==='light'){
     document.body.classList.add('light-mode');
-    const mb = document.getElementById('mode-btn');
-    if(mb) mb.textContent='☾ Dark';
+    setModeButtons(true);
   }
   init();
   initVersePopup();
