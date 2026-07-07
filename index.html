@@ -357,14 +357,11 @@ textarea::placeholder{color:rgba(138,154,181,0.4)}
 
 /* responsive */
 @media(max-width:640px){
-  #hero{height:52vh;min-height:320px}
+  #hero{height:58vh;min-height:360px}
   .hero-photo{background-position:55% 25%}
-  .hero-text{padding-bottom:70px}
+  .hero-text{padding-top:52px;padding-bottom:70px}
   .hero-corner{bottom:10px;gap:5px}
   .hero-corner-link{font-size:.6rem;padding:4px 10px;letter-spacing:.14em}
-  .opts-btn .btn-text{display:none}
-  .opts-btn{padding:7px 11px}
-
   .lesson-head,.lesson-body{padding:24px 20px}
   .seg{padding:18px 16px}
   .toc-block{padding:18px 16px}
@@ -563,7 +560,7 @@ body.light-mode .hero-overlay{
   <div class="nav-title" onclick="goHome()">Jesus and Me</div>
   <div class="nav-indicator" id="nav-indicator"></div>
   <div class="opts-wrap" id="opts-wrap">
-    <button class="opts-btn" id="opts-btn" onclick="toggleOptsMenu()"><span class="btn-icon">⚙</span><span class="btn-text"> Options ▾</span></button>
+    <button class="opts-btn" id="opts-btn" onclick="toggleOptsMenu()">Menu ▾</button>
     <div class="opts-menu" id="opts-menu">
       <button id="mode-item" onclick="toggleMode()">☀ Light Mode</button>
       <hr>
