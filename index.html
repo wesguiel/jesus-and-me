@@ -2417,9 +2417,71 @@ function toggleDig(btn){
   btn.nextElementSibling.classList.toggle('open');
 }
 
-// ═══ ESV VERSE PANEL ═══
-const ESV_KEY = '1af05754720ccb22500e9ff962aab8d0bf6d9f16';
+// ═══ API.BIBLE VERSE PANEL ═══
+const BIBLE_KEY = 'ylAWPP_0myZaUAkTvZleM';
+const NLT_ID = 'd6e14a625393b4da-01';
+const MSG_ID = '6f11a7de016f942e-01';
 const verseCache = {};
+
+const BOOK_ABBR = {
+  'genesis':'GEN','gen':'GEN','ge':'GEN','exodus':'EXO','exod':'EXO','ex':'EXO',
+  'leviticus':'LEV','lev':'LEV','numbers':'NUM','num':'NUM','nu':'NUM',
+  'deuteronomy':'DEU','deut':'DEU','dt':'DEU','joshua':'JOS','josh':'JOS','jos':'JOS',
+  'judges':'JDG','judg':'JDG','ruth':'RUT','rut':'RUT',
+  '1 samuel':'1SA','1sa':'1SA','1sam':'1SA','2 samuel':'2SA','2sa':'2SA','2sam':'2SA',
+  '1 kings':'1KI','1ki':'1KI','1kgs':'1KI','2 kings':'2KI','2ki':'2KI','2kgs':'2KI',
+  '1 chronicles':'1CH','1ch':'1CH','1chron':'1CH','2 chronicles':'2CH','2ch':'2CH','2chron':'2CH',
+  'ezra':'EZR','ezr':'EZR','nehemiah':'NEH','neh':'NEH','esther':'EST','esth':'EST','est':'EST',
+  'job':'JOB','psalm':'PSA','psalms':'PSA','ps':'PSA','psa':'PSA',
+  'proverbs':'PRO','prov':'PRO','pr':'PRO','ecclesiastes':'ECC','eccl':'ECC','ec':'ECC',
+  'song of solomon':'SNG','song':'SNG','sos':'SNG','isaiah':'ISA','isa':'ISA',
+  'jeremiah':'JER','jer':'JER','lamentations':'LAM','lam':'LAM',
+  'ezekiel':'EZK','ezek':'EZK','daniel':'DAN','dan':'DAN',
+  'hosea':'HOS','hos':'HOS','joel':'JOL','amos':'AMO','obadiah':'OBA','obad':'OBA',
+  'jonah':'JON','jon':'JON','micah':'MIC','mic':'MIC','nahum':'NAM','nah':'NAM',
+  'habakkuk':'HAB','hab':'HAB','zephaniah':'ZEP','zeph':'ZEP',
+  'haggai':'HAG','hag':'HAG','zechariah':'ZEC','zech':'ZEC','malachi':'MAL','mal':'MAL',
+  'matthew':'MAT','matt':'MAT','mt':'MAT','mark':'MRK','mk':'MRK','mar':'MRK',
+  'luke':'LUK','lk':'LUK','john':'JHN','jn':'JHN','joh':'JHN',
+  'acts':'ACT','ac':'ACT','romans':'ROM','rom':'ROM',
+  '1 corinthians':'1CO','1co':'1CO','1cor':'1CO','2 corinthians':'2CO','2co':'2CO','2cor':'2CO',
+  'galatians':'GAL','gal':'GAL','ephesians':'EPH','eph':'EPH',
+  'philippians':'PHP','phil':'PHP','php':'PHP','colossians':'COL','col':'COL',
+  '1 thessalonians':'1TH','1th':'1TH','1thes':'1TH','1thess':'1TH',
+  '2 thessalonians':'2TH','2th':'2TH','2thes':'2TH','2thess':'2TH',
+  '1 timothy':'1TI','1ti':'1TI','1tim':'1TI','2 timothy':'2TI','2ti':'2TI','2tim':'2TI',
+  'titus':'TIT','tit':'TIT','philemon':'PHM','philem':'PHM','phm':'PHM',
+  'hebrews':'HEB','heb':'HEB','james':'JAS','jas':'JAS',
+  '1 peter':'1PE','1pe':'1PE','1pet':'1PE','2 peter':'2PE','2pe':'2PE','2pet':'2PE',
+  '1 john':'1JN','1jn':'1JN','2 john':'2JN','2jn':'2JN','3 john':'3JN','3jn':'3JN',
+  'jude':'JUD','jud':'JUD','revelation':'REV','rev':'REV',
+};
+
+function parseSingleRef(text, lastBook){
+  text = text.trim();
+  let book = lastBook, rest = text;
+  const m = text.match(/^(\d\s+\w+|\w+(?:\s+of\s+\w+)?)\s+(\d.*)$/i);
+  if(m && BOOK_ABBR[m[1].toLowerCase()]){ book = m[1].toLowerCase(); rest = m[2]; }
+  const abbr = BOOK_ABBR[book];
+  if(!abbr) return null;
+  const v = rest.match(/^(\d+)[:.:](\d+)(?:-(\d+)[:.:](\d+)|-(\d+))?$/);
+  if(!v) return null;
+  let pid;
+  if(v[3]&&v[4]) pid=`${abbr}.${v[1]}.${v[2]}-${abbr}.${v[3]}.${v[4]}`;
+  else if(v[5])  pid=`${abbr}.${v[1]}.${v[2]}-${abbr}.${v[1]}.${v[5]}`;
+  else           pid=`${abbr}.${v[1]}.${v[2]}`;
+  return { pid, book };
+}
+
+function refsToPassageIds(fullRef){
+  const ids=[], parts=fullRef.split(/[;,]/).map(s=>s.trim()).filter(Boolean);
+  let lastBook='';
+  for(const p of parts){
+    const r=parseSingleRef(p,lastBook);
+    if(r){ ids.push(r.pid); lastBook=r.book; }
+  }
+  return ids;
+}
 
 function initVersePopup(){
   document.querySelectorAll('.ref').forEach(el=>{
@@ -2443,19 +2505,24 @@ async function showVerse(ref){
 
   if(verseCache[ref]){ body.innerHTML = verseCache[ref]; return; }
 
+  const bibleId = /\bMSG\b/i.test(ref) ? MSG_ID : NLT_ID;
+  const passageIds = refsToPassageIds(ref);
+  if(!passageIds.length){
+    body.innerHTML = `<div class="vp-text" style="color:var(--muted);font-style:italic">Unable to load — look up ${ref} in your Bible.</div>`;
+    return;
+  }
   try{
-    const query = ref.split(/;\s*/).join('+');
-    const url = `https://api.esv.org/v3/passage/text/?q=${encodeURIComponent(query)}`
-      + `&include-headings=false&include-footnotes=false`
-      + `&include-verse-numbers=true&include-short-copyright=false`
-      + `&include-passage-references=true`;
-    const res  = await fetch(url, { headers:{ Authorization:`Token ${ESV_KEY}` }});
-    const data = await res.json();
-    const passages = (data.passages||[]).map(p=>p.trim()).filter(Boolean);
-    const text = passages.length ? passages.join('\n\n') : 'Passage not found.';
-    const html = `
-      <div class="vp-text">${text.replace(/</g,'&lt;')}</div>
-      <div class="vp-footer">ESV® Bible · © 2001 Crossway · Used by permission</div>`;
+    const results = await Promise.all(passageIds.map(pid =>
+      fetch(`https://api.scripture.api.bible/v1/bibles/${bibleId}/passages/${pid}?content-type=text&include-verse-numbers=true&include-titles=false&include-notes=false`,
+        { headers:{ 'api-key': BIBLE_KEY }})
+      .then(r => r.ok ? r.json() : null)
+      .then(d => d && d.data ? d.data.content.trim() : null)
+    ));
+    const text = results.filter(Boolean).join('\n\n') || 'Passage not found.';
+    const copy = bibleId === MSG_ID
+      ? 'The Message · © 1993–2018 Eugene H. Peterson · NavPress · Used by permission'
+      : 'Holy Bible, New Living Translation · © 1996, 2004, 2015 Tyndale House Foundation · Used by permission';
+    const html = `<div class="vp-text">${text.replace(/</g,'&lt;')}</div><div class="vp-footer">${copy}</div>`;
     verseCache[ref] = html;
     body.innerHTML = html;
   } catch(err){
